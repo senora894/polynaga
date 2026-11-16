@@ -5852,81 +5852,135 @@ margin: 30px auto 0;
 }
 
 /* ==========================================
-   PERBAIKAN POPUP HP LANDSCAPE
-   Bebas Singgah & Permainan Selesai
-   ========================================== */
+   FIX POPUP HP LANDSCAPE POLYNAGA
+   Mengikuti ukuran koordinat #stage
+========================================== */
 
 @media (max-width: 900px) and (orientation: landscape) {
 
-    /* ===== POPUP BEBAS SINGGAH ===== */
+    /* ===== BEBAS SINGGAH ===== */
 
     #layers .mcard.free-modal {
-        width: 1260px;
-        max-width: 1260px;
-        max-height: 820px;
+        width: 1300px !important;
+        min-width: 0 !important;
+        max-width: 1300px !important;
+        max-height: 820px !important;
 
-        box-sizing: border-box;
-        padding: 45px 60px;
+        box-sizing: border-box !important;
+        padding: 70px 100px 60px !important;
 
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+
+    #layers .mcard.free-modal::before {
+        inset: -25px !important;
     }
 
     #layers .free-modal .tilepick {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-
-        column-gap: 14px;
-        row-gap: 10px;
-
-        width: 100%;
-        margin-top: 18px;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        margin-top: 8px !important;
     }
 
     #layers .free-modal .tilepick button {
-        width: 100%;
-        height: 110px;
-        min-height: 110px;
-
-        padding: 0;
-        margin: 0;
+        width: 100% !important;
+        height: 82px !important;
+        min-height: 82px !important;
     }
 
     #layers .free-modal .tilepick button img {
-        width: 100%;
-        height: 100%;
-
-        object-fit: contain;
-        object-position: center;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
     }
 
 
-    /* ===== POPUP PERMAINAN SELESAI ===== */
+    /* ===== PERMAINAN SELESAI ===== */
 
     #layers .mcard.end-modal {
-        width: 1120px;
-        max-width: 1120px;
-        max-height: 820px;
+        width: 1380px !important;
+        min-width: 0 !important;
+        max-width: 1380px !important;
+        max-height: 900px !important;
 
-        box-sizing: border-box;
+        box-sizing: border-box !important;
+        padding: 130px 120px 60px !important;
 
-        padding: 125px 90px 45px;
-
-        overflow-y: auto !important;
         overflow-x: hidden !important;
+        overflow-y: auto !important;
     }
 
     #layers .mcard.end-modal::before {
-        inset: -40px;
+        inset: -40px !important;
     }
 
     #layers .mcard.end-modal .end-content {
-        width: 100%;
-        max-width: 740px;
-
-        margin: 0 auto;
-
-        transform: translateY(-55px);
+        width: 100% !important;
+        max-width: 1000px !important;
+        margin: 0 auto !important;
+        transform: none !important;
+        gap: 5px !important;
     }
 
+    #layers .mcard.end-modal .end-winner {
+        font-size: 19px !important;
+    }
+
+    #layers .mcard.end-modal .end-ranking {
+        gap: 5px !important;
+    }
+
+    #layers .mcard.end-modal .end-rank {
+        min-height: 48px !important;
+        padding: 4px 10px !important;
+        gap: 8px !important;
+    }
+
+    #layers .mcard.end-modal .end-medal {
+        width: 38px !important;
+        min-width: 38px !important;
+        height: 38px !important;
+    }
+
+    #layers .mcard.end-modal .end-avatar {
+        width: 36px !important;
+        height: 36px !important;
+        flex-basis: 36px !important;
+    }
+
+    #layers .mcard.end-modal .end-player-name {
+        font-size: 18px !important;
+    }
+
+    #layers .mcard.end-modal .end-player-score {
+        font-size: 12px !important;
+    }
+
+    #layers .mcard.end-modal .end-points {
+        font-size: 21px !important;
+    }
+
+    #layers .mcard.end-modal .end-reflection {
+        margin-top: 3px !important;
+    }
+
+    #layers .mcard.end-modal .end-reflection h2 {
+        font-size: 15px !important;
+    }
+
+    #layers .mcard.end-modal .end-reflection li {
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+        margin: 2px 0 !important;
+    }
+
+    #layers .mcard.end-modal .end-button-area {
+        margin-top: 3px !important;
+        transform: none !important;
+    }
+
+    #layers .mcard.end-modal .end-button-area button {
+        width: 170px !important;
+    }
 }
