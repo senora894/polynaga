@@ -4985,7 +4985,7 @@ inset: -80px;
 #layers .mcard.end-modal::before {
     content: "";
     position: absolute;
-    inset: -75px;
+    inset: -67px;
 
     background-image: url("../assets/desain-popup/bingkai-permainan%20selesai.png");
     background-repeat: no-repeat;
@@ -5299,7 +5299,7 @@ inset: -80px;
 
 /* Menggeser seluruh isi hasil akhir ke atas */
 #layers .mcard.end-modal .end-content {
-    transform: translateY(-90px);
+    transform: translateY(-50px);
 }
 
 /* ==========================================
@@ -5849,4 +5849,84 @@ margin: 30px auto 0;
 #tutupKategori:hover {
     transform: translateY(-3px);
     filter: brightness(1.12);
+}
+
+/* ==========================================
+   PERBAIKAN POPUP HP LANDSCAPE
+   Bebas Singgah & Permainan Selesai
+   ========================================== */
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+    /* ===== POPUP BEBAS SINGGAH ===== */
+
+    #layers .mcard.free-modal {
+        width: 1260px;
+        max-width: 1260px;
+        max-height: 820px;
+
+        box-sizing: border-box;
+        padding: 45px 60px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #layers .free-modal .tilepick {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+
+        column-gap: 14px;
+        row-gap: 10px;
+
+        width: 100%;
+        margin-top: 18px;
+    }
+
+    #layers .free-modal .tilepick button {
+        width: 100%;
+        height: 110px;
+        min-height: 110px;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    #layers .free-modal .tilepick button img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+        object-position: center;
+    }
+
+
+    /* ===== POPUP PERMAINAN SELESAI ===== */
+
+    #layers .mcard.end-modal {
+        width: 1120px;
+        max-width: 1120px;
+        max-height: 820px;
+
+        box-sizing: border-box;
+
+        padding: 125px 90px 45px;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    #layers .mcard.end-modal::before {
+        inset: -40px;
+    }
+
+    #layers .mcard.end-modal .end-content {
+        width: 100%;
+        max-width: 740px;
+
+        margin: 0 auto;
+
+        transform: translateY(-55px);
+    }
+
 }
