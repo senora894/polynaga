@@ -1,0 +1,5852 @@
+/* =====================================================================
+   POLYNAGA – STYLE
+   Panggung 1672x941 px (sesuai rasio foto), diskalakan otomatis oleh JS.
+   Tanpa font/CDN eksternal agar bisa dimainkan offline.
+   ===================================================================== */
+
+/* FONT UTAMA POLYNAGA */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --wood:#8a5a2b; --wood-d:#5b3a1a; --wood-l:#c98f4f;
+  --gold:#f7c431; --gold-d:#c98a0b; --cream:#fff6dc;
+  --green:#4cae3b; --green-d:#2f7d27; --red:#d93b30; --ink:#3b2a14;
+  --font:"Baloo 2", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: #000000;
+
+    font-family: var(--font);
+    color: var(--ink);
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+}
+  -webkit-user-select:none;user-select:none}
+button{font-family:inherit;cursor:pointer;border:0}
+button:disabled{cursor:not-allowed}
+
+#rotate {
+    display: none !important;
+}
+
+#stage{position:fixed;left:50%;top:50%;width:1672px;height:941px;transform-origin:center center;
+  transform:translate(-50%,-50%);overflow:hidden;background:#2d6a2a;font-size:20px}
+#stage.big{font-size:24px}
+/* UKURAN FONT GAME */
+
+/* Kecil */
+#stage.small {
+    font-size: 17px;
+}
+
+/* Normal */
+#stage {
+    font-size: 20px;
+}
+
+/* Besar */
+#stage.big {
+    font-size: 24px;
+}
+.hidden,[hidden]{display:none!important}
+
+/* ---------- Latar ---------- */
+
+/* ---------- BACKGROUND POLYNAGA ---------- */
+
+#bg {
+    position: absolute;
+    inset: -10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(40,110,40,.08),
+            rgba(20,70,30,.12)
+        ),
+        url("../assets/kampung-naga.png")
+        center center / cover no-repeat;
+
+    /* Menghilangkan blur */
+    filter: saturate(1.2);
+
+    z-index: 0;
+}
+
+
+/* ---------- Logo POLYNAGA Baru ---------- */
+
+#logo {
+  position: absolute;
+  left: -10px;
+  top: -18px;
+
+  width: 300px;
+  height: 90px;
+
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  text-align: center;
+  z-index: 5;
+}
+
+#logo img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  pointer-events: none;
+}
+
+
+/* ==========================================
+   POLYNAGA - PLAYER HUD FINAL
+========================================== */
+
+/* POSISI EMPAT KARTU PEMAIN */
+#players {
+    position: absolute;
+
+    left: 436px;
+    top: 24px;
+
+    width: 930px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    align-items: flex-start;
+    gap: 14px;
+
+    overflow: visible;
+    z-index: 10;
+}
+
+/* PANEL WARNA PEMAIN */
+#players .pcard {
+    position: relative;
+
+    width: 205px;
+    min-width: 213px;
+    max-width: 213px;
+
+    height: 85px;
+    flex: 0 0 213px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    overflow: visible;
+    box-sizing: border-box;
+
+    border: 3px solid white;
+    border-radius: 28px;
+
+    background: linear-gradient(
+        180deg,
+        var(--c1),
+        var(--c2)
+    );
+
+    box-shadow:
+        0 5px 0 rgba(0,0,0,.25),
+        0 7px 12px rgba(0,0,0,.25),
+        inset 0 3px 5px rgba(255,255,255,.3);
+
+    color: white;
+    transition: transform .25s, box-shadow .25s;
+}
+
+/* AVATAR KARAKTER PNG */
+#players .pcard img.avatar {
+    position: absolute;
+
+    left: -3px;
+    bottom: 0px;
+
+    width: 102px;
+    height: 98px;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: bottom center;
+
+    border: none;
+    border-radius: 0;
+
+    background: transparent;
+    box-shadow: none;
+
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* AREA NAMA DAN POIN */
+#players .pcard .pi {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-left: 73px;
+
+    min-width: 0;
+    flex: 1;
+
+    z-index: 2;
+    line-height: 1.05;
+}
+
+/* NAMA PEMAIN */
+#players .pcard b {
+    display: block;
+
+    font-family: "Baloo 2", sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+
+    color: white;
+
+    white-space: nowrap;
+    letter-spacing: -.3px;
+
+    text-shadow: 0 2px 3px rgba(0,0,0,.4);
+}
+
+/* POIN PEMAIN */
+#players .pcard .star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    width: fit-content;
+
+    margin-top: 5px;
+    padding: 2px 9px;
+
+    border-radius: 20px;
+
+    background: rgba(0,0,0,.30);
+
+    color: white;
+
+    font-family: "Baloo 2", sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+/* IKON BINTANG CUSTOM */
+#players .pcard .star-icon {
+    position: static !important;
+
+    width: 21px !important;
+    height: 21px !important;
+
+    object-fit: contain;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    background: transparent !important;
+    box-shadow: none !important;
+
+    flex: 0 0 21px;
+}
+
+/* PEMAIN YANG SEDANG BERGILIRAN */
+#players .pcard.on {
+    transform: translateY(-4px) scale(1.04);
+
+    border-color: #fff3a0;
+
+    box-shadow:
+        0 0 0 3px rgba(255,230,100,.7),
+        0 0 16px rgba(255,220,80,.7),
+        0 6px 10px rgba(0,0,0,.3);
+}
+
+/* TANDA KHUSUS PEMAIN */
+#players .pcard .tag {
+    position: absolute;
+
+    right: -6px;
+    top: -10px;
+
+    background: white;
+    border-radius: 14px;
+
+    padding: 0 8px;
+
+    font-size: 17px;
+    color: #222;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+}
+
+
+/* ---------- Gear & timer ---------- */
+/* Tombol ikon pengaturan */
+#gear {
+    position: absolute;
+    right: 45px; /* semakin besar, semakin ke kiri */
+    top: 20px;
+
+    width: 76px;
+    height: 76px;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Gambar ikon pengaturan */
+#gear img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    display: block;
+}
+
+#gear:hover {
+    filter: brightness(1.1);
+}
+#gear:hover{filter:brightness(1.1)}
+/* Gambar ikon pengaturan */
+#gear img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    display: block;
+}
+#timer{position:absolute;right:26px;top:108px;min-width:150px;padding:4px 14px;text-align:center;font-size:25px;font-weight:800;color:#fff;
+  background:rgba(40,25,10,.78);border-radius:20px;border:2px solid rgba(255,255,255,.5)}
+#timer.low{background:#b3261e;animation:pulse 1s infinite}
+
+/* ---------- Papan Poin Modal Sosial ---------- */
+#pointsign{position:absolute;left:12px;top:488px;width:262px;height:196px;padding:22px 14px 10px;display:flex;gap:6px;align-items:center;
+  transform:rotate(-4deg);background:linear-gradient(180deg,#a8703a,#744a22);border:6px solid #4e3015;border-radius:16px;
+  box-shadow:0 8px 0 #3a230e,0 12px 22px rgba(0,0,0,.45),inset 0 3px 0 rgba(255,255,255,.2);color:#fff}
+.sg-icon{font-size:56px;filter:drop-shadow(0 3px 0 rgba(0,0,0,.4))}
+.sg-label{font-size:22px;font-weight:800;line-height:1;text-shadow:0 2px 0 #3a230e}
+.sg-name{font-size:15px;opacity:.9;margin-top:2px}
+.sg-pts{margin-top:2px;padding:0 10px;border-radius:18px;background:rgba(0,0,0,.35);font-size:44px;font-weight:900;line-height:1.1;color:#ffe9a0}
+.sg-pts::first-letter{color:#ffd23f}
+
+/* ---------- Papan 20 Petak ---------- */
+
+/* ==================================
+   PAPAN POLYNAGA - 20 PETAK
+================================== */
+
+/* =========================================
+   PAPAN POLYNAGA - 20 PETAK
+========================================= */
+
+#boardwrap {
+    position: absolute;
+    left: 240px;
+    top: 166px;
+    width: 1140px;
+    height: 600px;
+    perspective: none;
+}
+
+#board {
+    position: absolute;
+    inset: 0;
+
+    padding: 10px;
+
+    display: grid;
+
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+
+    gap: 6px;
+
+    transform: none;
+    transform-origin: center;
+
+    border-radius: 30px;
+
+    background: linear-gradient(
+        180deg,
+        #65b64d,
+        #398b34
+    );
+
+    border: 12px solid #a6622b;
+
+    box-shadow:
+        0 14px 0 #6b3d17,
+        0 26px 40px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(0,60,0,.35);
+}
+
+/* AREA TENGAH KAMPUNG NAGA */
+
+.center {
+    grid-area: 2 / 2 / 6 / 6;
+
+    position: relative;
+    
+    margin: 16px;
+
+    border-radius: 20px;
+    border: 6px solid #7a4a1e;
+
+    overflow: hidden;
+
+    background: url("../assets/i.jpg")
+        center / cover no-repeat;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.35);
+}
+  background:url(../assets/i.jpg) center/cover;box-shadow:inset 0 0 30px rgba(0,0,0,.35)}
+.center .sign{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);padding:6px 22px;text-align:center;font-size:30px;font-weight:900;line-height:1;
+  color:#fff;background:linear-gradient(180deg,#a8703a,#744a22);border:4px solid #4e3015;border-radius:12px;text-shadow:0 3px 0 #3a230e;box-shadow:0 5px 0 #3a230e}
+
+  .tile {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+
+/* Gambar utama setiap petak */
+
+/* GAMBAR PETAK */
+
+/* PETAK PERMAINAN */
+
+
+/* GAMBAR PETAK */
+
+/* ==================================
+   PETAK POLYNAGA - FLAT 2D DESIGN
+================================== */
+
+.tile {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    display: block;
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    /* Menghilangkan efek timbul */
+    box-shadow: none;
+
+    /* Border tipis dan datar */
+    border: 1px solid rgba(255,255,255,.7);
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transform: none;
+    transition: filter .2s ease;
+}
+
+/* Efek ketika petak disentuh */
+.tile:hover {
+    transform: none;
+    filter: brightness(1.08);
+}
+
+/* Gambar di dalam petak */
+.tile-art {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    border-radius: 9px;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* POSISI PION */
+
+.tile .owner {
+    position: absolute;
+    z-index: 3;
+}
+
+.tile .pawns {
+    position: absolute;
+    z-index: 5;
+}
+.tile{position:relative;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:4px 6px;text-align:center;
+  font-weight:800;line-height:1;color:var(--ink);cursor:pointer;transition:filter .2s,transform .2s;
+  box-shadow:inset 0 -8px 0 rgba(0,0,0,.12),inset 0 3px 0 rgba(255,255,255,.55),0 6px 0 rgba(110,65,20,.6),0 10px 14px rgba(0,0,0,.25);border:3px solid rgba(255,255,255,.55)}
+.tile:hover{filter:brightness(1.08);transform:translateY(-3px)}
+.ticon{font-size:42px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.3))}
+.tname{font-size:19px;margin-top:2px;text-shadow:0 1px 0 rgba(255,255,255,.7)}
+.lvl{position:absolute;left:10px;top:6px;font-size:11px;letter-spacing:1px;color:#e0a000;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.owner{display:none;position:absolute;right:6px;top:5px;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;font-size:17px;
+  border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.45)}
+.tile.start{background:linear-gradient(180deg,#ffb347,#ff6a3d);color:#fff}
+.tile.start .tname{font-size:30px;font-weight:900;color:#fff;text-shadow:0 3px 0 #a82a12}
+.tile.green{background:linear-gradient(180deg,#e2f8b9,#a9e070)}
+.tile.blue{background:linear-gradient(180deg,#d6ebff,#90c5f7)}
+.tile.yellow{background:linear-gradient(180deg,#fff3bd,#f8cf6a)}
+.tile.orange{background:linear-gradient(180deg,#ffe3b0,#f6b65e)}
+.tile.purple{background:linear-gradient(180deg,#ecd3ff,#bb8cf2)}
+.tile.peach{background:linear-gradient(180deg,#ffe9da,#f8c3a4)}
+.tile.white{background:linear-gradient(180deg,#f4faf6,#cfe5d8)}
+.tile.finish{background:linear-gradient(180deg,#ff7a68,#d42d2d);color:#fff}
+.tile.finish .tname{font-size:28px;font-weight:900;color:#fff;text-shadow:0 3px 0 #8a1010}
+.tile.finish .ticon{font-size:48px}
+.tile.glow{animation:tileglow 1s ease-in-out infinite}
+
+
+/* Tampilan dasar sprite */
+.pawn-sprite {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+/* Karakter dalam keadaan diam */
+.pawn-sprite.idle {
+    background-size: contain;
+}
+
+/* Karakter dalam keadaan berjalan - 6 frame */
+
+.pawn-sprite.walking {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-size: 600% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+
+    animation: characterWalk 20s steps(6, end) infinite;
+
+    will-change: background-position;
+}
+
+@keyframes characterWalk {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
+}
+
+
+/* Gambar pion alternatif */
+.pawn-image {
+    width: 42px;
+    height: 58px;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    display: block;
+}
+
+/* ---------- Panel informasi ---------- */
+#info{position:absolute;left:1380px;top:322px;width:284px;border-radius:20px;overflow:hidden;background:#fffaf0;border:4px solid #fff;
+  box-shadow:0 12px 30px rgba(0,0,0,.5);z-index:20;animation:slidein .35s ease-out}
+.info-head{position:relative;padding:11px 12px;text-align:center;font-size:22px;font-weight:800;color:#fff;background:linear-gradient(180deg,#4c7fd1,#2c58a8)}
+#infoX{position:absolute;right:8px;top:6px;width:36px;height:36px;border-radius:50%;background:#e8392f;color:#fff;font-size:20px;font-weight:900;border:3px solid #fff}
+.info-body{padding:10px 14px 14px;text-align:center}
+#infoPic{height:118px;border-radius:12px;border:3px solid #e8d6aa;background:#9cc;background-repeat:no-repeat}
+#info h3{margin-top:8px;font-size:23px;line-height:1.05}
+#info p{margin-top:4px;font-size:16.5px;line-height:1.15;color:#4a3a22}
+.info-msg{margin-top:9px;padding:7px 9px;border-radius:12px;background:#ffe9a6;border:2px solid #e8c458;font-size:15.5px;line-height:1.15}
+.info-msg b{display:block;font-size:16.5px}
+
+/* ---------- Tombol umum ---------- */
+.btn{display:inline-block;padding:9px 26px;border-radius:16px;font-size:23px;font-weight:800;color:#fff;margin-top:10px;
+  box-shadow:0 5px 0 rgba(0,0,0,.28);text-shadow:0 2px 0 rgba(0,0,0,.25);transition:transform .1s,filter .15s}
+.btn:hover:not(:disabled){filter:brightness(1.1)}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.28)}
+.btn.green{background:linear-gradient(180deg,#5cc447,#2f8f27)}
+.btn.blue{background:linear-gradient(180deg,#5aa0ff,#2766d4)}
+.btn.gold{background:linear-gradient(180deg,#ffd24a,#e19a0a);color:#5a3500;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.btn.red{background:linear-gradient(180deg,#ff6b5e,#c92b20)}
+.btn.grey{background:linear-gradient(180deg,#b8b8b8,#808080)}
+.btn:disabled{filter:grayscale(1) brightness(.85);opacity:.7}
+
+/* =========================================
+   MASKOT POLYNAGA - REDESIGN
+   Tampilan lebih besar dan rapi
+========================================= */
+
+/* =========================================
+   MASKOT POLYNAGA + BALON PNG
+========================================= */
+
+#mascot {
+    position: absolute;
+
+    /* Posisi maskot */
+    left: -1px;
+    bottom: 0;
+
+    width: 500px;
+    height: 300px;
+
+    pointer-events: none;
+    z-index: 30;
+}
+
+/* GAMBAR KARAKTER */
+#mascot img {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    height: 300px;
+    width: auto;
+
+    object-fit: contain;
+    object-position: bottom left;
+
+    filter: drop-shadow(
+        0 6px 8px rgba(0,0,0,.35)
+    );
+
+    z-index: 2;
+}
+
+/* BALON PERCAKAPAN PNG */
+/* BALON PERCAKAPAN PNG */
+.bubble {
+    position: absolute;
+
+    left: 105px;
+    bottom: 15px;
+
+    width: 350px;
+    height: 117px;
+
+    box-sizing: border-box;
+
+    background-image: url("../assets/bubble-template.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 58px 8px 58px;
+
+    color: #653711;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1.15;
+    text-align: center;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    z-index: 3;
+}
+
+/* ---------- Tombol bawah ---------- */
+.wood-btn{position:absolute;bottom:20px;width:212px;height:104px;padding-top:44px;border-radius:40px;font-size:25px;font-weight:800;color:#fff;
+  background:linear-gradient(180deg,#8a5a2b,#5b3a1a);border:7px solid #f2a620;box-shadow:0 7px 0 #a86b0c,0 12px 20px rgba(0,0,0,.45);text-shadow:0 2px 0 #2a1a08}
+.wood-btn:hover{filter:brightness(1.12)}
+.wb-ico{position:absolute;left:50%;top:-34px;transform:translateX(-50%);font-size:60px;filter:drop-shadow(0 4px 3px rgba(0,0,0,.45))}
+#btnPamali{left:488px}
+#btnKuis{left:976px}
+
+/* ==========================================
+   POLYNAGA - DADU 3D GLOSSY
+========================================== */
+
+/* ALAS DADU EMAS */
+#dice {
+    position: absolute;
+
+    left: 750px;
+right: auto;
+bottom: 10px;
+
+    width: 120px;
+    height: 120px;
+
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 0 30px;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #fff2a8 0%,
+            #ffd34e 35%,
+            #f1ae17 68%,
+            #bd7908 100%
+        );
+
+    border: 8px solid #ffda65;
+
+    box-shadow:
+        inset 0 5px 8px rgba(255,255,255,.65),
+        inset 0 -8px 12px rgba(157,91,0,.3),
+        0 0 0 5px #b97a0a,
+        0 0 0 9px rgba(255,211,83,.55),
+        0 10px 24px rgba(0,0,0,.5);
+
+    z-index: 5;
+}
+
+/* EFEK DADU SIAP DILEMPAR */
+#dice.ready {
+    animation: diceReady 1s ease-in-out infinite;
+}
+
+/* TULISAN LEMPAR */
+#dice.ready::after {
+    content: "LEMPAR";
+
+    position: absolute;
+    bottom: 23px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    color: #754000;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* ANIMASI KETIKA DADU DILEMPAR */
+#dice.rolling .die {
+    animation: shake .12s linear infinite;
+}
+
+/* BENTUK KUBUS DADU 3D */
+#dice .die {
+    position: relative;
+
+    width: 104px;
+    height: 104px;
+
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+
+    padding: 13px;
+
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fafafa 45%,
+            #e9e9e9 100%
+        );
+
+    box-shadow:
+        inset 0 4px 5px rgba(255,255,255,.95),
+        inset 0 -9px 0 #d3d3d3,
+        0 4px 0 #bdbdbd,
+        0 10px 14px rgba(0,0,0,.35);
+
+    transform:
+        perspective(500px)
+        rotateX(8deg)
+        rotateZ(-4deg);
+
+    z-index: 2;
+}
+
+/* TITIK HITAM DADU */
+#dice .die i {
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 32% 28%,
+            #444444 0%,
+            #191919 48%,
+            #050505 100%
+        );
+
+    box-shadow:
+        inset 0 2px 2px rgba(255,255,255,.15),
+        0 1px 2px rgba(0,0,0,.25);
+
+    place-self: center;
+    opacity: 0;
+}
+
+/* POLA ANGKA DADU 1-6 */
+#dice .die[data-v="1"] i:nth-child(5),
+
+#dice .die[data-v="2"] i:nth-child(1),
+#dice .die[data-v="2"] i:nth-child(9),
+
+#dice .die[data-v="3"] i:nth-child(1),
+#dice .die[data-v="3"] i:nth-child(5),
+#dice .die[data-v="3"] i:nth-child(9),
+
+#dice .die[data-v="4"] i:nth-child(1),
+#dice .die[data-v="4"] i:nth-child(3),
+#dice .die[data-v="4"] i:nth-child(7),
+#dice .die[data-v="4"] i:nth-child(9),
+
+#dice .die[data-v="5"] i:nth-child(1),
+#dice .die[data-v="5"] i:nth-child(3),
+#dice .die[data-v="5"] i:nth-child(5),
+#dice .die[data-v="5"] i:nth-child(7),
+#dice .die[data-v="5"] i:nth-child(9),
+
+#dice .die[data-v="6"] i:nth-child(1),
+#dice .die[data-v="6"] i:nth-child(3),
+#dice .die[data-v="6"] i:nth-child(4),
+#dice .die[data-v="6"] i:nth-child(6),
+#dice .die[data-v="6"] i:nth-child(7),
+#dice .die[data-v="6"] i:nth-child(9) {
+    opacity: 1;
+}
+
+/* ---------- Toast & efek ---------- */
+#toasts{position:absolute;inset:0;pointer-events:none;z-index:60}
+.note{position:absolute;left:50%;top:140px;transform:translateX(-50%);padding:10px 26px;border-radius:24px;background:rgba(40,25,10,.92);color:#fff;font-size:25px;font-weight:800;
+  white-space:nowrap;border:3px solid #ffd23f;box-shadow:0 8px 20px rgba(0,0,0,.5);animation:notein 2.4s ease forwards}
+.float{position:absolute;transform:translateX(-50%);font-size:34px;font-weight:900;color:#7dff6a;-webkit-text-stroke:2px #1b5a12;paint-order:stroke fill;animation:floatup 1.4s ease-out forwards}
+.float.neg{color:#ff8a7a;-webkit-text-stroke:2px #7a1a10}
+.confetti{position:absolute;top:-40px;font-size:34px;animation:fall 2.8s linear forwards}
+
+/* ---------- Overlay / modal ---------- */
+#layers{position:absolute;inset:0;z-index:50;pointer-events:none}
+.overlay{pointer-events:auto;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,25,10,.62);opacity:0;transition:opacity .18s}
+.overlay.show{opacity:1}
+.overlay.clear{background:transparent}
+.mcard{position:relative;max-width:1080px;min-width:620px;max-height:880px;overflow:auto;padding:26px 34px 28px;border-radius:30px;background:var(--cream);
+  border:8px solid #b9803f;box-shadow:0 0 0 5px #6b3d17,0 24px 50px rgba(0,0,0,.6);animation:popin .25s ease-out}
+.mcard h1{font-size:44px;line-height:1.05;text-align:center}
+.mcard h2{font-size:34px;line-height:1.12}
+.mcard p{font-size:23px;line-height:1.2}
+.row{display:flex;align-items:center;gap:12px}
+.center-t{text-align:center}
+.chip{display:inline-block;padding:3px 16px;border-radius:18px;font-size:19px;font-weight:800;background:#f1dfb0;border:2px solid #d3b36a}
+.chip.l1{background:#c9f0b0;border-color:#8cc86a}.chip.l2{background:#ffe59a;border-color:#e3b93d}.chip.l3{background:#ffc3b8;border-color:#e68a7a}
+.who{width:50px;height:50px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4);background:#fff}
+.qhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.qhead .sp{flex:1}
+.qtext{margin:6px 0 16px}
+.opts{display:grid;gap:11px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;padding:12px 16px;border-radius:18px;font-size:23px;font-weight:700;line-height:1.1;color:var(--ink);
+  background:#fff;border:3px solid #e3cf9c;box-shadow:0 4px 0 #cdb57a;transition:transform .1s,background .15s}
+.opt b{flex:none;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:23px;color:#fff;background:#4c7fd1}
+.opt:hover:not(:disabled){background:#fff4cf;transform:translateX(4px)}
+.opt.right{background:#c9f5b8;border-color:#4cae3b;box-shadow:0 4px 0 #3c8d2e}
+.opt.right b{background:#3c9a2e}
+.opt.wrong{background:#ffd0c8;border-color:#e0554a;box-shadow:0 4px 0 #b53a30;animation:shake .3s}
+.opt.wrong b{background:#d03a2e}
+.opt:disabled:not(.right):not(.wrong){opacity:.6}
+.qfeed{min-height:34px;margin-top:12px;font-size:22px;font-weight:700;line-height:1.15}
+.qfeed.ok{color:#2a7a20}.qfeed.bad{color:#b53a30}
+.qfoot{text-align:center}
+.pill{display:inline-block;padding:2px 14px;border-radius:16px;background:#ffe9a6;border:2px solid #e8c458;font-size:19px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pamali-opt{padding:12px 16px}
+.bigtimer{font-size:96px;font-weight:900;text-align:center;line-height:1;color:#a05a00;text-shadow:0 4px 0 #fff}
+.bar{height:16px;border-radius:10px;background:#e8d9ae;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#5cc447,#f7c431);transition:width 1s linear}
+.score-row{display:flex;align-items:center;gap:14px;padding:8px 12px;border-radius:16px;background:#fff;border:2px solid #e3cf9c;margin-top:8px}
+.score-row .nm{width:190px;font-size:23px;font-weight:800}
+.chips{display:flex;gap:8px}
+.chips button{width:64px;padding:6px 0;border-radius:14px;font-size:22px;font-weight:800;background:#f1e4bd;color:var(--ink);border:3px solid #d3b36a}
+.chips button.sel{background:#4cae3b;color:#fff;border-color:#2f7d27}
+.tilepick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.tilepick button{position:relative;padding:10px 6px;border-radius:16px;font-size:19px;font-weight:800;line-height:1.05;color:var(--ink);background:#fff;border:3px solid #e3cf9c;box-shadow:0 4px 0 #cdb57a}
+.tilepick button:hover:not(:disabled){background:#fff4cf}
+.tilepick button span{display:block;font-size:34px}
+.tilepick button em{display:block;font-style:normal;font-size:14px;color:#2f7d27}
+.tilepick button:disabled{opacity:.45}
+.rank{display:flex;align-items:center;gap:14px;padding:10px 16px;margin-top:10px;border-radius:20px;background:#fff;border:3px solid #e3cf9c}
+.rank.first{background:linear-gradient(180deg,#fff6c4,#ffe27a);border-color:#e3a60a;transform:scale(1.03)}
+.rank .medal{font-size:46px;width:60px;text-align:center}
+.rank .nm{flex:1;font-size:27px;font-weight:800;line-height:1}
+.rank .nm small{display:block;font-size:17px;font-weight:600;color:#6a5535}
+.rank .pt{font-size:34px;font-weight:900;color:#a05a00}
+.setup{background:rgba(10,30,10,.35)}
+.setup .mcard{width:1020px;max-width:1020px}
+.charpick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}
+.charpick button{padding:10px 8px 12px;border-radius:22px;background:#fff;border:4px solid #e3cf9c;box-shadow:0 5px 0 #cdb57a;font-size:22px;font-weight:800;color:var(--ink);line-height:1.05;opacity:.55;transition:all .15s}
+.charpick button img{display:block;margin:0 auto 6px;width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+.charpick button small{display:block;margin-top:3px;font-size:15px;font-weight:600;color:#6a5535}
+.charpick button.sel{opacity:1;border-color:var(--c);background:#fffbe6;transform:translateY(-4px);box-shadow:0 0 0 3px var(--c),0 9px 0 #cdb57a}
+.durs{display:flex;justify-content:center;gap:12px;margin:8px 0 4px}
+.durs button{padding:6px 22px;border-radius:16px;font-size:22px;font-weight:800;background:#f1e4bd;color:var(--ink);border:3px solid #d3b36a}
+.durs button.sel{background:#4c7fd1;color:#fff;border-color:#2c58a8}
+.rules li{margin:6px 0 6px 26px;font-size:21px;line-height:1.2}
+.acc{margin-top:10px;border-radius:16px;background:#fff;border:3px solid #e3cf9c;overflow:hidden}
+.acc button{width:100%;text-align:left;padding:10px 16px;font-size:23px;font-weight:800;background:#fff;color:var(--ink)}
+.acc div{display:none;padding:2px 16px 12px;font-size:21px;line-height:1.2}
+.acc.open div{display:block}
+.close-x{position:absolute;right:14px;top:12px;width:42px;height:42px;border-radius:50%;background:#e8392f;color:#fff;font-size:22px;font-weight:900;border:3px solid #fff}
+
+/* ---------- Animasi ---------- */
+@keyframes hop{0%{transform:translateY(0)}45%{transform:translateY(-26px) scale(1.12)}100%{transform:translateY(0)}}
+@keyframes popin{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes slidein{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-7px) rotate(-6deg)}75%{transform:translateX(7px) rotate(6deg)}}
+@keyframes pulse{50%{opacity:.6}}
+@keyframes diceReady{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes tileglow{50%{filter:brightness(1.25)}}
+@keyframes notein{0%{opacity:0;transform:translate(-50%,-14px)}10%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-10px)}}
+@keyframes floatup{0%{opacity:0;transform:translate(-50%,0)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-80px)}}
+@keyframes fall{to{transform:translateY(1000px) rotate(540deg)}}
+
+
+/* ==========================================
+   POLYNAGA - BOARD DESIGN FINAL
+   PETAK SERAGAM DAN GAMBAR TAJAM
+========================================== */
+
+/* AREA PAPAN */
+#boardwrap {
+    position: absolute;
+    left: 240px;
+    top: 140px;
+    width: 1140px;
+    height: 670px;
+    perspective: none;
+}
+
+/* GRID PAPAN */
+#board {
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+
+    /* SEMUA KOLOM DAN BARIS SAMA BESAR */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+
+    gap: 4px;
+    padding: 8px;
+
+    box-sizing: border-box;
+
+    border-radius: 30px;
+    border: 12px solid #a6622b;
+
+    background: linear-gradient(
+        180deg,
+        #65b64d,
+        #398b34
+    );
+
+    box-shadow:
+        0 14px 0 #6b3d17,
+        0 26px 40px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(0,60,0,.35);
+}
+
+/* GAMBAR UTAMA BAGIAN TENGAH */
+#board .center {
+    grid-area: 2 / 2 / 6 / 6;
+
+    position: relative;
+
+    /* Hilangkan jarak yang mengecilkan gambar */
+    margin: 0;
+
+    transform: none !important;
+
+    border: 6px solid #7a4a1e;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        url("../assets/i.jpg")
+        center / 100% 100% no-repeat;
+
+    box-shadow:
+        0 5px 0 #5b3517,
+        0 8px 15px rgba(0,0,0,.3),
+        inset 0 0 30px rgba(0,0,0,.35);
+}
+
+/* SEMUA PETAK */
+#board .tile {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: block;
+
+    padding: 0;
+    margin: 0;
+
+    overflow: hidden;
+
+    border: 3px solid #e6a52e;
+    border-radius: 14px;
+
+    background: #267d31;
+
+    box-shadow:
+        0 4px 0 #874817,
+        0 5px 9px rgba(0,0,0,.35),
+        inset 0 2px 0 rgba(255,255,255,.85),
+        inset 0 -3px 0 rgba(110,55,10,.4);
+
+    transform: none !important;
+
+    transition: filter .2s ease;
+}
+
+/* BINGKAI EMAS */
+#board .tile::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border: 2px solid rgba(255,226,135,.85);
+    border-radius: 10px;
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* GAMBAR PETAK */
+#board .tile-art {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    /* Gambar memenuhi seluruh petak */
+    object-fit: fill;
+    object-position: center;
+
+    image-rendering: auto;
+
+    border-radius: 9px;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* EFEK HOVER */
+#board .tile:hover {
+    transform: none !important;
+
+    filter: brightness(1.12) saturate(1.08);
+
+    z-index: 4;
+
+    box-shadow:
+        0 4px 0 #874817,
+        0 7px 13px rgba(0,0,0,.4),
+        0 0 10px rgba(255,213,80,.65);
+}
+
+/* PION DAN PEMILIK */
+#board .tile .owner {
+    z-index: 3;
+}
+
+#board .tile .pawns {
+    z-index: 5;
+}
+
+
+/* PERBAIKAN KARAKTER SAAT BERJALAN */
+
+#board .tile .pawns {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    z-index: 8;
+    pointer-events: none;
+}
+
+#board .tile .pawn {
+    position: relative;
+
+    width: 48px;
+    height: 76px;
+
+    flex: 0 0 48px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#board .tile .pawn-sprite {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+
+/* ==========================================
+   POLYNAGA - FINAL CHARACTER PROPORTIONS
+========================================== */
+
+/* AREA KARAKTER SEMUA PETAK */
+#board .tile .pawns {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    overflow: visible;
+
+    z-index: 8;
+    pointer-events: none;
+}
+
+/* ==========================================
+   PETAK BIASA - KARAKTER LEBIH BESAR
+========================================== */
+
+#board .tile:not([data-id="0"]) .pawn {
+    width: 64px;
+    height: 88%;
+
+    max-height: 78px;
+
+    flex: 0 0 64px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    position: relative;
+}
+
+#board .tile:not([data-id="0"]) .pawn-sprite {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+/* Karakter diam */
+#board .tile:not([data-id="0"]) .pawn-sprite.idle {
+    background-size: 160% 100%;
+}
+
+/* Karakter berjalan */
+#board .tile:not([data-id="0"]) .pawn-sprite.walking {
+    background-size: 600% 100%;
+    background-position: 0 0;
+
+    animation: characterWalk 20s steps(6, end) infinite;
+}
+
+/* ==========================================
+   PETAK START - KARAKTER LEBIH PENDEK
+========================================== */
+
+#board .tile[data-id="0"] .pawn {
+    width: 40px;
+    height: 88%;
+
+    max-height: 70px;
+
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    position: relative;
+
+    margin-left: -4px;
+}
+
+#board .tile[data-id="0"] .pawn:first-child {
+    margin-left: 0;
+}
+
+#board .tile[data-id="0"] .pawn-sprite {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+/* START - karakter diam */
+#board .tile[data-id="0"] .pawn-sprite.idle {
+    background-size: 160% 100%;
+}
+
+/* START - karakter berjalan */
+#board .tile[data-id="0"] .pawn-sprite.walking {
+    background-size: 600% 100%;
+
+    animation: characterWalk 20s steps(6, end) infinite;
+}
+
+/* ==========================================
+   ANIMASI BERJALAN
+========================================== */
+
+@keyframes characterWalk {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
+}
+
+/* HILANGKAN PAPAN POIN MODAL SOSIAL */
+#pointsign {
+    display: none !important;
+}
+
+/* ===================================
+   POLYNAGA - FONT KARTU PEMAIN
+   BALOO 2 EXTRA BOLD
+=================================== */
+
+#players,
+#players .pcard,
+#players .pcard .pi,
+#players .pcard b,
+#players .pcard .star {
+    font-family: "Baloo 2", sans-serif !important;
+}
+
+/* Nama pemain */
+#players .pcard b {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Angka poin */
+#players .pcard .star {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: 0px;
+}
+
+
+/* ==========================================
+   POLYNAGA - REDESIGN HALAMAN PILIH KARAKTER
+   REFERENSI: MONOPOLY GO STYLE
+========================================== */
+
+/* OVERLAY / LATAR BELAKANG */
+.setup {
+    background: rgba(5, 25, 10, 0.48);
+}
+
+/* PANEL UTAMA BAMBU */
+.setup .mcard {
+    position: relative;
+
+    width: 1500px;
+    height: 900px;
+
+    min-width: 0;
+    max-width: none;
+    max-height: none;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: visible;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    background-color: transparent;
+    background-image: url("../assets/setup-bamboo-frame-transparent.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+}
+
+/* AREA ISI PANEL */
+.setup-content {
+    position: absolute;
+
+    left: 25%;
+    right: 15%;
+
+    top: 35%;
+    bottom: 12%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    gap: 14px;
+}
+
+/* ==========================================
+   KARTU PEMILIHAN KARAKTER
+========================================== */
+
+.setup-content .charpick {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+    margin: 0;
+    width: 85%;
+}
+
+/* KARTU KARAKTER */
+.setup-content .charpick button {
+    position: relative;
+
+    min-width: 0;
+    min-height: 350px;
+
+    padding: 12px 10px 14px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    border: 6px solid var(--c);
+    border-radius: 38px;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #fff9df 55%,
+        #ffe9a8 100%
+    );
+
+    color: #493018;
+
+    font-size: 31px;
+    font-weight: 900;
+    line-height: 1.05;
+
+    opacity: 1;
+
+    box-shadow:
+        0 8px 0 rgba(105, 61, 15, 0.45),
+        0 12px 18px rgba(80, 45, 10, 0.20),
+        inset 0 4px 8px rgba(255,255,255,0.95);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+/* WARNA BINGKAI SETIAP KARAKTER */
+.setup-content .charpick button:nth-child(1) {
+    --c: #168ee9 !important;
+}
+
+.setup-content .charpick button:nth-child(2) {
+    --c: #f5a51c !important;
+}
+
+.setup-content .charpick button:nth-child(3) {
+    --c: #39b83c !important;
+}
+
+.setup-content .charpick button:nth-child(4) {
+    --c: #a84ce0 !important;
+}
+
+
+/* GAMBAR KARAKTER - UKURAN DAN BAYANGAN */
+.setup-content .charpick button img {
+    display: block;
+
+    /* Ukuran gambar */
+    width: 85%;
+    height: 150px;
+    max-width: 150px;
+
+    /* Posisi gambar */
+    margin: 5px auto 8px;
+
+    object-fit: contain;
+    object-position: center bottom;
+
+    /* Menghilangkan bingkai gambar */
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+
+    /* Bayangan karakter */
+    filter:
+        drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.18))
+        drop-shadow(0px 7px 5px rgba(0, 0, 0, 0.10));
+
+    flex-shrink: 0;
+}
+
+
+/* NAMA KARAKTER */
+.setup-content .charpick button {
+    text-align: center;
+}
+
+
+/* DESKRIPSI KARAKTER */
+.setup-content .charpick button small {
+    display: block;
+
+    width: 100%;
+    margin-top: 5px;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    color: #684725;
+    text-align: center;
+}
+
+
+/* EFEK HOVER */
+.setup-content .charpick button:hover {
+    transform: translateY(-7px) scale(1.02);
+
+    filter: brightness(1.04);
+
+    box-shadow:
+        0 12px 0 rgba(105, 61, 15, 0.35),
+        0 16px 22px rgba(80, 45, 10, 0.22);
+}
+
+/* KARAKTER YANG DIPILIH */
+.setup-content .charpick button.sel {
+    opacity: 1;
+
+    transform: translateY(-5px);
+
+    border-color: var(--c);
+
+    background: linear-gradient(
+        180deg,
+        #ffffff,
+        #fff5c8
+    );
+
+    box-shadow:
+        0 0 0 4px var(--c),
+        0 10px 0 rgba(105, 61, 15, 0.4),
+        0 15px 22px rgba(80, 45, 10, 0.22),
+        inset 0 4px 8px rgba(255,255,255,0.9);
+}
+
+/* ==========================================
+   TOMBOL DURASI PERMAINAN
+========================================== */
+
+.setup-content .durs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 14px;
+
+    width: max-content;
+    max-width: 100%;
+
+    position: relative;
+    left: calc(50% - 80px);
+    transform: translateX(-50%);
+
+    margin: -50px 0 15px;
+}
+
+/* TOMBOL 15, 30, 45 MENIT */
+.setup-content .durs button {
+     flex: 0 0 150px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    min-height: 58px;
+
+    padding: 8px 10px;
+    white-space: nowrap;
+
+    border: 4px solid #d98d19;
+    border-radius: 20px;
+
+    background: linear-gradient(
+        180deg,
+        #fff0b8 0%,
+        #ffc34a 55%,
+        #e99117 100%
+    );
+
+    color: #60330e;
+    font-size: 26px;
+    font-weight: 900;
+
+    box-shadow:
+        0 5px 0 #a96717,
+        inset 0 3px 5px rgba(255,255,255,0.8);
+
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* EFEK SAAT DISOROT */
+.setup-content .durs button:hover {
+    transform: translateY(-3px);
+}
+
+/* TOMBOL YANG DIPILIH */
+.setup-content .durs button.sel {
+    background: linear-gradient(
+        180deg,
+        #50c4ff,
+        #0874e6
+    );
+
+    color: #fff;
+    border: 4px solid #ffe58a;
+
+    box-shadow:
+        0 5px 0 #174b9b,
+        0 0 12px rgba(255,255,255,0.8),
+        inset 0 3px 5px rgba(255,255,255,0.5);
+}
+
+
+/* ==========================================
+   POLYNAGA - TOMBOL MULAI & CARA BERMAIN
+========================================== */
+
+/* SUSUNAN KEDUA TOMBOL */
+.setup-content .setup-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    width: 100%;
+    margin: 0;
+}
+
+/* PENGATURAN DASAR KEDUA TOMBOL */
+.setup-content .setup-buttons button {
+    width: 400px;
+    min-width: 400px;
+    height: 96px;
+    min-height: 96px;
+
+    box-sizing: border-box;
+    padding: 8px 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    border-radius: 30px;
+    border: 4px solid;
+
+    font-family: "Baloo 2", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+
+    white-space: nowrap;
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 0 rgba(80, 45, 10, 0.45),
+        0 10px 14px rgba(0, 0, 0, 0.2),
+        inset 0 4px 7px rgba(255, 255, 255, 0.45);
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* TOMBOL MULAI - HIJAU */
+.setup-content #start {
+    transform: translateX(-90px);
+    transform: translateY(-30px);
+    background: linear-gradient(
+        180deg,
+        #69df43 0%,
+        #35c52b 50%,
+        #20a51b 100%
+    );
+
+    border-color: #a5ef72;
+    color: white;
+
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* TOMBOL CARA BERMAIN - EMAS */
+.setup-content #how {
+    transform: translateX(-90px);
+    transform: translateY(-30px);
+    background: linear-gradient(
+        180deg,
+        #ffe66b 0%,
+        #ffbd32 50%,
+        #f59a13 100%
+    );
+
+    border-color: #fff0a1;
+    color: #66350d;
+
+    text-shadow: 0 2px 1px rgba(255, 255, 255, 0.35);
+}
+
+/* UKURAN IKON PLAY */
+.setup-content #start .play-icon {
+    width: 62px;
+    height: 62px;
+
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* UKURAN IKON CARA BERMAIN */
+.setup-content #how .how-icon {
+    width: 76px;
+    height: 66px;
+
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+
+    filter: drop-shadow(
+        0 3px 2px rgba(80, 40, 0, 0.25)
+    );
+}
+
+/* TULISAN KEDUA TOMBOL */
+.setup-content .setup-buttons button span {
+    font-family: "Baloo 2", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+/* EFEK HOVER */
+.setup-content .setup-buttons button:hover:not(:disabled) {
+    transform: translateY(-5px);
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 12px 0 rgba(80, 45, 10, 0.4),
+        0 14px 17px rgba(0, 0, 0, 0.22),
+        inset 0 4px 7px rgba(255, 255, 255, 0.55);
+}
+
+/* EFEK KLIK */
+.setup-content .setup-buttons button:active:not(:disabled) {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 3px 0 rgba(80, 45, 10, 0.4),
+        inset 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* KONDISI TOMBOL NONAKTIF */
+.setup-content #start:disabled {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* PENYESUAIAN LAYAR */
+@media (max-width: 900px) {
+    .setup-content .setup-buttons {
+        gap: 16px;
+    }
+
+    .setup-content .setup-buttons button {
+        width: 360px;
+        min-width: 360px;
+        height: 88px;
+        min-height: 88px;
+        font-size: 26px;
+    }
+
+    .setup-content .setup-buttons button span {
+        font-size: 26px;
+    }
+
+    .setup-content #start .play-icon {
+        width: 54px;
+        height: 54px;
+    }
+
+    .setup-content #how .how-icon {
+        width: 64px;
+        height: 60px;
+    }
+}
+
+
+/* ==========================================
+   PENYESUAIAN LAYAR
+========================================== */
+
+@media (max-width: 900px) {
+    .setup .mcard {
+        width: 1500px;
+        height: 850px;
+    }
+
+    .setup-content .charpick {
+        gap: 12px;
+    }
+
+    .setup-content .charpick button {
+        font-size: 27px;
+    }
+
+    .setup-content .charpick button img {
+        height: 190px;
+    }
+}
+
+
+/* ==========================================
+   POLYNAGA - KARTU KARAKTER FINAL
+   GAMBAR UTUH + BINGKAI MENYESUAIKAN GAMBAR
+========================================== */
+
+/* 1. SUSUNAN KARTU */
+.setup-content .charpick {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+    align-items: start;
+    justify-items: stretch;
+
+    width: 90%;
+    margin: 0 0 0 -25px !important;
+}
+
+/* 2. BINGKAI KARTU */
+.setup-content .charpick button {
+
+    /* Ukuran mengikuti gambar */
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    /* Hilangkan ruang tambahan */
+    padding: 0 !important;
+    margin: 0;
+
+    display: block;
+
+    /* Bingkai warna */
+    border: 6px solid var(--c) !important;
+    border-radius: 24px;
+
+    background: transparent !important;
+
+    /* Shading luar */
+    box-shadow:
+        0 5px 0 rgba(80, 45, 10, 0.4),
+        0 8px 14px rgba(0, 0, 0, 0.22);
+
+    overflow: hidden;
+
+    transition: transform .2s ease;
+}
+
+/* 3. GAMBAR KARAKTER */
+.setup-content .charpick button img {
+
+    display: block;
+
+    /* Ukuran gambar */
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    /* Pertahankan seluruh gambar */
+    object-fit: contain;
+    object-position: center;
+
+    /* Hilangkan bingkai tambahan */
+    border: none;
+    border-radius: 0;
+
+    background: transparent;
+    box-shadow: none;
+
+    filter: none;
+}
+
+/* 4. WARNA BINGKAI */
+
+/* Kuncen - Biru */
+.setup-content .charpick button:nth-child(1) {
+    --c: #168ee9 !important;
+}
+
+/* Lebe - Oranye */
+.setup-content .charpick button:nth-child(2) {
+    --c: #f5a51c !important;
+}
+
+/* Punduh - Hijau */
+.setup-content .charpick button:nth-child(3) {
+    --c: #39b83c !important;
+}
+
+/* Warga Sanaga - Ungu */
+.setup-content .charpick button:nth-child(4) {
+    --c: #a84ce0 !important;
+}
+
+/* 5. KARTU TERPILIH */
+.setup-content .charpick button.sel {
+    border-color: var(--c) !important;
+
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.85),
+        0 6px 0 rgba(80,45,10,0.4),
+        0 9px 15px rgba(0,0,0,0.22);
+}
+
+/* 6. EFEK HOVER */
+.setup-content .charpick button:hover {
+    transform: translateY(-4px);
+}
+
+
+/* ==========================================
+   POSISI FINAL TOMBOL MULAI & CARA BERMAIN
+========================================== */
+
+.setup-content .setup-buttons {
+    position: relative !important;
+
+    left: -60px !important;
+    top: -15px !important;
+}
+
+/* ==========================================
+   POPUP PENGATURAN - DESAIN BAMBU TROPIS
+========================================== */
+
+.settings-popup {
+    position: relative !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    background:
+        url("../assets/panel-pengaturan.png")
+        center / 100% 100% no-repeat !important;
+}
+
+/* Judul sudah tersedia di dalam gambar */
+.settings-popup h1 {
+    display: none;
+}
+
+/* AREA TOMBOL PENGATURAN */
+.settings-popup .settings-actions {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 9px;
+
+    padding-top: 25px;
+}
+
+/* DESAIN SELURUH TOMBOL */
+.settings-popup .settings-actions .btn {
+    width: 330px;
+    min-height: 43px;
+
+    margin: 0;
+    padding: 5px 12px;
+
+    border-radius: 13px;
+    border: 2px solid rgba(255,255,255,0.7);
+
+    font-family: "Baloo 2", sans-serif;
+    font-size: 21px;
+    font-weight: 900;
+
+    line-height: 1.2;
+
+    box-shadow:
+        0 4px 0 rgba(95,55,15,0.4),
+        0 5px 8px rgba(0,0,0,0.18);
+
+    transition: transform .15s ease, filter .15s ease;
+}
+
+/* EFEK HOVER */
+.settings-popup .settings-actions .btn:hover:not(:disabled) {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+}
+
+/* EFEK KLIK */
+.settings-popup .settings-actions .btn:active:not(:disabled) {
+    transform: translateY(2px);
+}
+
+/* TOMBOL CLOSE DI ATAS GAMBAR SILANG MERAH */
+.settings-popup .close-x {
+    position: absolute;
+
+    top: 6%;
+    right: 6%;
+
+    width: 9%;
+    height: 14%;
+
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    color: transparent;
+    font-size: 0;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+/* FOKUS TOMBOL CLOSE */
+.settings-popup .close-x:focus-visible {
+    outline: 3px solid #fff;
+    border-radius: 50%;
+}
+
+/* =========================================
+   PANEL PENGATURAN POLYNAGA
+========================================= */
+
+.settings-popup {
+    position: relative !important;
+
+    width: 660px !important;
+    height: 990px !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    background:
+        url("../assets/panel-pengaturan.png")
+        center / 100% 100% no-repeat !important;
+}
+
+/* AREA KONTROL */
+.settings-popup .settings-body {
+    position: absolute !important;
+
+    left: 14% !important;
+    right: 14% !important;
+
+    top: 19% !important;
+    bottom: 12% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: flex-start !important;
+
+    gap: 5px !important;
+
+    padding: 0 !important;
+}
+/* BARIS SETIAP PENGATURAN */
+.settings-popup .settings-row {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 48px;
+
+    gap: 12px;
+
+    border-bottom: 2px solid rgba(176, 126, 48, 0.2);
+}
+
+/* IKON */
+.settings-popup .settings-icon {
+    width: 54px;
+    min-width: 54px;
+
+    text-align: center;
+
+    font-size: 38px;
+    font-weight: 900;
+
+    filter: drop-shadow(0 3px 2px rgba(0,0,0,.2));
+}
+
+.settings-popup .sound-icon {
+    color: #1687ed;
+}
+
+.settings-popup .music-icon {
+    color: #a42be3;
+    font-size: 48px;
+}
+
+.settings-popup .volume-icon {
+    color: #8c35c4;
+}
+
+.settings-popup .text-icon {
+    color: #0878db;
+}
+
+.settings-popup .rules-icon {
+    color: #c35a17;
+}
+
+/* LABEL */
+.settings-popup .settings-label {
+    display: block;
+
+    flex: 0 0 auto !important;
+
+    color: #573015;
+
+    font-size: 20px !important;
+
+    font-weight: 900 !important;
+
+    white-space: nowrap;
+
+    text-align: left;
+
+    text-shadow: 0 1px 1px rgba(255,255,255,.7);
+
+    min-width: 0;
+
+    margin: 0;
+}
+
+/* TOMBOL ON/OFF */
+.settings-popup .settings-toggle {
+    position: relative;
+
+    width: 140px;
+    min-width: 140px;
+    height: 45px;
+
+    border-radius: 30px;
+    border: 3px solid #278b1c;
+
+    background: linear-gradient(
+        180deg,
+        #79e53e,
+        #20a51d
+    );
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: 900;
+
+    text-shadow: 0 2px 2px rgba(0,0,0,.35);
+
+    box-shadow:
+        0 4px 0 #80602d,
+        inset 0 2px 3px rgba(255,255,255,.5);
+
+    cursor: pointer;
+}
+
+/* TOMBOL MATI */
+.settings-popup .settings-toggle:not(.active) {
+    background: linear-gradient(
+        180deg,
+        #b8b8b8,
+        #777
+    );
+
+    border-color: #777;
+}
+
+/* SLIDER VOLUME */
+.settings-popup .volume-control {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+    width: 100%;
+}
+
+.settings-popup #sVolume {
+    flex: 1;
+    min-width: 60px;
+
+    height: 13px;
+
+    accent-color: #20ae22;
+    cursor: pointer;
+}
+
+.settings-popup #sVolumeValue {
+    min-width: 48px;
+
+    color: #563016;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* PILIHAN UKURAN TEKS */
+.settings-popup .settings-select {
+    width: 155px;
+    height: 46px;
+
+    padding: 0 15px;
+
+    border: 3px solid #2676d4;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        180deg,
+        #65b1ff,
+        #2474df
+    );
+
+    color: white;
+
+    font-size: 20px;
+    font-weight: 900;
+
+    text-align: center;
+    cursor: pointer;
+}
+
+/* TOMBOL PANDUAN */
+.settings-popup .settings-guide {
+    width: 190px;
+    min-width: 190px;
+    height: 47px;
+
+    border: 3px solid #d77a00;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        180deg,
+        #ffbd32,
+        #ed8300
+    );
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    text-shadow: 0 2px 2px rgba(0,0,0,.4);
+
+    box-shadow: 0 4px 0 #a65c0a;
+
+    cursor: pointer;
+}
+
+/* TOMBOL KEMBALI KE GAME */
+.settings-popup .settings-back {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    width: 72%;
+    min-height: 65px;
+
+    align-self: center;
+
+    border: 4px solid #b82b1c;
+    border-radius: 40px;
+
+    background: linear-gradient(
+        180deg,
+        #ff6655,
+        #e51f19
+    );
+
+    color: white;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    text-shadow: 0 3px 2px rgba(0,0,0,.35);
+
+    box-shadow:
+        0 5px 0 #8f321b,
+        inset 0 3px 4px rgba(255,255,255,.4);
+
+    cursor: pointer;
+}
+
+/* EFEK KLIK */
+.settings-popup .settings-guide:hover,
+.settings-popup .settings-back:hover,
+.settings-popup .settings-toggle:hover {
+    filter: brightness(1.12);
+}
+
+/* TOMBOL SILANG TRANSPARAN
+   GAMBAR SILANG SUDAH ADA DI BACKGROUND */
+.settings-popup .close-x {
+    position: absolute;
+
+    top: 4%;
+    right: 4%;
+
+    width: 11%;
+    height: 17%;
+
+    border: none;
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: transparent;
+    font-size: 0;
+
+    cursor: pointer;
+    z-index: 10;
+}
+.settings-popup .settings-row:nth-child(3) .settings-label {
+    flex: 0 0 150px;
+}
+
+.settings-popup .settings-row:nth-child(3) .volume-control {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+}
+
+/* ==========================================
+   FONT POPUP PENGATURAN - BALOO 2 EXTRA BOLD
+========================================== */
+
+.settings-popup,
+.settings-popup * {
+    font-family: "Baloo 2", sans-serif !important;
+}
+
+/* Tulisan judul setiap pengaturan */
+.settings-popup .settings-label {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.4px;
+}
+
+/* Tombol hidup dan mati */
+.settings-popup .settings-toggle {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+}
+
+/* Angka volume */
+.settings-popup #sVolumeValue {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+}
+
+/* Dropdown ukuran teks */
+.settings-popup .settings-select {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+}
+
+/* Tombol panduan */
+.settings-popup .settings-guide {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+}
+
+/* Tombol kembali */
+.settings-popup .settings-back {
+    font-family: "Baloo 2", sans-serif !important;
+    font-weight: 800 !important;
+}
+
+/* ==========================================
+   MEMPERBESAR FONT POPUP PENGATURAN
+========================================== */
+
+/* Nama setiap pengaturan */
+.settings-popup .settings-label {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+}
+
+/* Tombol Hidup dan Mati */
+.settings-popup .settings-toggle {
+    font-size: 24px !important;
+    font-weight: 800 !important;
+}
+
+/* Angka persentase volume */
+.settings-popup #sVolumeValue {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+}
+
+/* Pilihan ukuran teks */
+.settings-popup .settings-select {
+    font-size: 24px !important;
+    font-weight: 800 !important;
+}
+
+/* Tombol Lihat Panduan */
+.settings-popup .settings-guide {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+}
+
+/* Tombol Kembali ke Game */
+.settings-popup .settings-back {
+    font-size: 30px !important;
+    font-weight: 800 !important;
+}
+
+/* HANYA MENGGESER TOMBOL KEMBALI KE GAME */
+.settings-popup .settings-back {
+    transform: translateY(24px) !important;
+}
+
+/* =====================================
+   DROPDOWN UKURAN TEKS
+===================================== */
+
+/* Kotak pilihan utama */
+.settings-popup .settings-select {
+    color: #ffffff !important;
+    background: linear-gradient(
+        180deg,
+        #65b1ff,
+        #2474df
+    ) !important;
+
+    border: 3px solid #2676d4;
+    border-radius: 25px;
+
+    font-size: 24px !important;
+    font-weight: 800 !important;
+
+    cursor: pointer;
+}
+
+/* Pilihan di dalam dropdown */
+.settings-popup .settings-select option {
+    background-color: #fff1d2 !important;
+    color: #573015 !important;
+
+    font-family: "Baloo 2", sans-serif !important;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* ========================================
+   CUSTOM DROPDOWN UKURAN TEKS 3D
+======================================== */
+
+.settings-size-picker {
+    position: relative;
+    width: 150px;
+    z-index: 20;
+}
+
+/* Tombol utama */
+.settings-select-trigger {
+    width: 100%;
+    min-height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    border: 3px solid #1762bd;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        180deg,
+        #65b5ff 0%,
+        #2684ee 50%,
+        #1260c9 100%
+    );
+
+    color: white;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+
+    text-shadow: 0 2px 2px #1854a0;
+
+    box-shadow:
+        0 5px 0 #104b99,
+        0 7px 9px rgba(0,0,0,.25);
+
+    cursor: pointer;
+    transition: .15s;
+}
+
+.settings-select-trigger:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #104b99;
+}
+
+/* Panah dropdown */
+.select-arrow {
+    font-size: 13px;
+    transition: transform .2s;
+}
+
+.settings-select-trigger[aria-expanded="true"]
+.select-arrow {
+    transform: rotate(180deg);
+}
+
+/* Daftar pilihan */
+.settings-size-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    padding: 10px;
+
+    background: #ffe9bd;
+    border: 3px solid #b77a32;
+    border-radius: 17px;
+
+    box-shadow:
+        0 6px 0 #89501e,
+        0 10px 15px rgba(0,0,0,.3);
+
+    z-index: 50;
+}
+
+/* Sembunyikan menu */
+.settings-size-menu[hidden] {
+    display: none !important;
+}
+
+/* Semua tombol pilihan */
+.size-option {
+    width: 100%;
+    min-height: 42px;
+
+    border-radius: 13px;
+    border: 3px solid;
+
+    color: white;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    text-shadow: 0 2px 2px rgba(0,0,0,.3);
+
+    transition: .15s;
+}
+
+/* KECIL - ORANYE */
+.size-small {
+    background: linear-gradient(
+        180deg,
+        #ffc45a,
+        #ec8b12
+    );
+
+    border-color: #c87508;
+
+    box-shadow: 0 4px 0 #a65b08;
+}
+
+/* NORMAL - BIRU */
+.size-normal {
+    background: linear-gradient(
+        180deg,
+        #65b5ff,
+        #1768d2
+    );
+
+    border-color: #1559ad;
+
+    box-shadow: 0 4px 0 #10478e;
+}
+
+/* BESAR - HIJAU */
+.size-big {
+    background: linear-gradient(
+        180deg,
+        #65df62,
+        #159b25
+    );
+
+    border-color: #117d1d;
+
+    box-shadow: 0 4px 0 #086419;
+}
+
+/* Efek ketika disentuh */
+.size-option:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.4);
+}
+
+/* Pilihan yang sedang aktif */
+.size-option.is-selected {
+    filter: brightness(1.13);
+    outline: 3px solid #fff4c8;
+    outline-offset: -5px;
+}
+
+/* ===================================
+   SISTEM SKALA UKURAN TEKS POLYNAGA
+=================================== */
+
+/* NORMAL */
+#stage {
+    --text-scale: 1;
+}
+
+/* KECIL */
+#stage.small {
+    --text-scale: 0.9;
+}
+
+/* BESAR */
+#stage.big {
+    --text-scale: 1.15;
+}
+
+/* NAMA KARAKTER DI BAGIAN ATAS */
+#stage .sg-label {
+    font-size: calc(22px * var(--text-scale)) !important;
+}
+
+#stage .sg-name {
+    font-size: calc(15px * var(--text-scale)) !important;
+}
+
+/* NAMA PETAK */
+#stage .tname {
+    font-size: calc(19px * var(--text-scale)) !important;
+}
+
+/* INFORMASI PETAK */
+#stage .info-head {
+    font-size: calc(22px * var(--text-scale)) !important;
+}
+
+#stage #info h3 {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+#stage #info p {
+    font-size: calc(16.5px * var(--text-scale)) !important;
+}
+
+#stage .info-msg {
+    font-size: calc(15.5px * var(--text-scale)) !important;
+}
+
+/* TOMBOL DAN INFORMASI GAME */
+#stage .btn {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+#stage .wood-btn {
+    font-size: calc(25px * var(--text-scale)) !important;
+}
+
+/* PERTANYAAN KUIS */
+#stage .mcard h1 {
+    font-size: calc(44px * var(--text-scale)) !important;
+}
+
+#stage .mcard h2 {
+    font-size: calc(34px * var(--text-scale)) !important;
+}
+
+#stage .mcard p {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+/* PILIHAN JAWABAN */
+#stage .opt {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+/* HASIL DAN PETUNJUK */
+#stage .qfeed {
+    font-size: calc(22px * var(--text-scale)) !important;
+}
+
+#stage .rules li {
+    font-size: calc(21px * var(--text-scale)) !important;
+}
+
+/* ==========================================
+   IKON PNG CUSTOM PENGATURAN
+========================================== */
+
+/* Area ikon */
+.settings-popup .settings-icon {
+    width: 58px;
+    min-width: 58px;
+    height: 58px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Gambar ikon */
+.settings-popup .settings-icon img {
+    width: 80px;
+    height: 80px;
+
+    object-fit: contain;
+
+    display: block;
+
+    filter: drop-shadow(
+        0 3px 2px rgba(0,0,0,.2)
+    );
+}
+
+/* Ikon kembali ke game */
+.settings-popup .settings-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Gambar rumah */
+.settings-popup .back-icon {
+    width: 38px;
+    height: 38px;
+
+    object-fit: contain;
+}
+
+/* =========================================
+   POLYNAGA - SISTEM UKURAN TEKS FINAL
+========================================= */
+
+#stage {
+    --text-scale: 1;
+}
+
+/* KECIL */
+#stage.small {
+    --text-scale: 0.90;
+}
+
+/* NORMAL */
+#stage:not(.small):not(.big) {
+    --text-scale: 1;
+}
+
+/* BESAR */
+#stage.big {
+    --text-scale: 1.15;
+}
+
+/* NAMA PEMAIN */
+#stage #players .pcard b {
+    font-size: calc(17px * var(--text-scale)) !important;
+}
+
+#stage #players .pcard .star {
+    font-size: calc(17px * var(--text-scale)) !important;
+}
+
+/* TIMER */
+#stage #timer {
+    font-size: calc(25px * var(--text-scale)) !important;
+}
+
+/* MASKOT */
+#stage .bubble {
+    font-size: calc(19px * var(--text-scale)) !important;
+}
+
+/* INFORMASI PETAK */
+#stage .info-head {
+    font-size: calc(22px * var(--text-scale)) !important;
+}
+
+#stage #info h3 {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+#stage #info p {
+    font-size: calc(16.5px * var(--text-scale)) !important;
+}
+
+/* TOMBOL GAME */
+#stage .wood-btn {
+    font-size: calc(25px * var(--text-scale)) !important;
+}
+
+/* PERTANYAAN DAN MODAL */
+#stage .mcard h1 {
+    font-size: calc(44px * var(--text-scale)) !important;
+}
+
+#stage .mcard h2 {
+    font-size: calc(34px * var(--text-scale)) !important;
+}
+
+#stage .mcard p {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+#stage .opt {
+    font-size: calc(23px * var(--text-scale)) !important;
+}
+
+#stage .qfeed {
+    font-size: calc(22px * var(--text-scale)) !important;
+}
+
+#stage .rules li {
+    font-size: calc(21px * var(--text-scale)) !important;
+}
+
+/* TRANSISI PERUBAHAN UKURAN */
+#stage,
+#stage * {
+    transition-property: font-size;
+    transition-duration: .15s;
+}
+
+/* =================================
+   UKURAN IKON PENGATURAN
+================================= */
+
+/* Pengaturan umum ikon */
+.settings-icon img {
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+/* Ikon efek suara */
+.sound-icon img {
+    width: 80px;
+    height: 80px;
+}
+
+/* Ikon musik latar */
+.music-icon img {
+    width: 70px;
+    height: 70px;
+}
+
+/* Ikon volume */
+.volume-icon img {
+    width: 65px;
+    height: 65px;
+}
+
+/* Ikon ukuran teks */
+.text-icon img {
+    width: 65px;
+    height: 65px;
+}
+
+/* Ikon cara bermain */
+.rules-icon img {
+    width: 65px;
+    height: 65px;
+}
+/* =================================
+   PERBAIKAN UKURAN IKON PENGATURAN
+================================= */
+
+.settings-popup .settings-icon img {
+    object-fit: contain !important;
+    max-width: none !important;
+    max-height: none !important;
+}
+
+/* Efek suara */
+.settings-popup .sound-icon img {
+    width: 127px !important;
+    height: 127px !important;
+}
+
+/* Musik */
+.settings-popup .music-icon img {
+    width: 110px !important;
+    height: 110px !important;
+}
+
+/* Volume */
+.settings-popup .volume-icon img {
+    width: 110px !important;
+    height: 110px !important;
+}
+
+/* Ukuran teks */
+.settings-popup .text-icon img {
+    width: 95px !important;
+    height: 95px !important;
+}
+
+/* Panduan */
+.settings-popup .rules-icon img {
+    width: 70px !important;
+    height: 70px !important;
+}
+.settings-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.settings-back img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+.settings-back span {
+    margin-left: 0;
+}
+/* Tombol kembali ke game */
+.settings-popup .settings-back {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Logo rumah */
+.settings-popup .settings-back img {
+    position: absolute !important;
+    left: 18px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+
+    width: 110px !important;
+    height: 110px !important;
+
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain !important;
+
+    z-index: 4 !important;
+}
+
+/* Tulisan kembali ke game */
+.settings-popup .settings-back span {
+    position: relative !important;
+    left: 30px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 3 !important;
+}
+/* ==========================================
+   TOMBOL AKHIRI DAN MULAI ULANG
+   PENGATURAN POLYNAGA
+========================================== */
+
+/* Ukuran area pengaturan agar 7 baris muat */
+.settings-popup .settings-body {
+    top: 17% !important;
+    bottom: 9% !important;
+    justify-content: space-between !important;
+}
+
+/* Ukuran setiap baris */
+.settings-popup .settings-row {
+    min-height: 42px !important;
+}
+
+/* Label dua pengaturan baru */
+.settings-popup .end-turn-row .settings-label,
+.settings-popup .restart-row .settings-label {
+    font-size: 20px !important;
+    white-space: nowrap;
+}
+
+/* Ikon sementara */
+.settings-popup .end-icon,
+.settings-popup .restart-icon {
+    width: 54px !important;
+    min-width: 54px !important;
+    height: 48px !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px !important;
+}
+
+/* TOMBOL AKHIRI */
+.settings-popup .settings-end {
+    width: 180px;
+    min-width: 180px;
+    height: 42px;
+
+    border: 3px solid #888;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        180deg,
+        #bcbcbc,
+        #777777
+    );
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: 900;
+
+    text-shadow: 0 2px 2px rgba(0,0,0,.3);
+
+    box-shadow: 0 4px 0 #555;
+
+    cursor: pointer;
+}
+
+/* TOMBOL MULAI ULANG */
+.settings-popup .settings-restart {
+    width: 180px;
+    min-width: 180px;
+    height: 42px;
+
+    border: 3px solid #b82b1c;
+    border-radius: 25px;
+
+    background: linear-gradient(
+        180deg,
+        #ff6655,
+        #e51f19
+    );
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: 900;
+
+    text-shadow: 0 2px 2px rgba(0,0,0,.3);
+
+    box-shadow: 0 4px 0 #8f321b;
+
+    cursor: pointer;
+}
+
+/* EFEK HOVER */
+.settings-popup .settings-end:hover,
+.settings-popup .settings-restart:hover {
+    filter: brightness(1.12);
+}
+
+/* EFEK KLIK */
+.settings-popup .settings-end:active,
+.settings-popup .settings-restart:active {
+    transform: translateY(3px);
+}
+.settings-popup .end-icon img,
+.settings-popup .restart-icon img {
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+    display: block;
+}
+/* =================================================
+   POLYNAGA - FINAL PERAPIAN PANEL PENGATURAN
+================================================= */
+/* AREA KONTROL PENGATURAN */
+/* AREA KONTROL PENGATURAN */
+.settings-popup .settings-body {
+    position: absolute !important;
+
+    left: 14% !important;
+    right: 14% !important;
+
+    top: 19% !important;
+    bottom: 14% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: space-between !important;
+
+    gap: 0 !important;
+
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* =================================
+   BARIS PENGATURAN
+================================= */
+
+.settings-popup .settings-row {
+    display: flex !important;
+
+    flex-direction: row;
+
+    align-items: center !important;
+
+    width: 100%;
+
+    height: 55px !important;
+    min-height: 55px !important;
+
+    padding: 0;
+    margin: 0 !important;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+    box-sizing: border-box;
+}
+
+/* UKURAN IKON PENGATURAN */
+.settings-popup .settings-icon {
+    width: 55px !important;
+    min-width: 55px !important;
+    height: 55px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+}
+
+.settings-popup .settings-icon img {
+    width: 52px !important;
+    height: 52px !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+}
+
+/* TOMBOL KEMBALI KE GAME */
+.settings-popup .settings-back {
+    position: relative !important;
+
+    width: 340px !important;
+    height: 65px !important;
+
+    min-height: 65px !important;
+
+    margin: 0 auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+}
+.settings-popup .settings-back img {
+    width: 55px !important;
+    height: 55px !important;
+
+    left: 15px !important;
+}
+
+/* =====================================
+   UKURAN FINAL BACKGROUND PENGATURAN
+===================================== */
+
+.settings-popup {
+    width: 500px !important;
+    height: 800px !important;
+
+    min-width: 560px !important;
+    max-width: 560px !important;
+
+    min-height: 840px !important;
+    max-height: 840px !important;
+
+    background-size: 90% 90% !important;
+}
+/* =====================================
+   PENGATURAN POSISI TULISAN
+===================================== */
+
+.settings-popup .settings-label {
+    position: relative !important;
+
+    left: 0px;
+    top: 0px;
+
+    font-size: 25px !important;
+}
+/* =====================================
+   POSISI TULISAN PER BARIS
+===================================== */
+
+/* 1. Efek Suara */
+.settings-popup .settings-row:nth-child(1) .settings-label {
+    font-size: 24px !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* 2. Musik Latar */
+.settings-popup .settings-row:nth-child(2) .settings-label {
+    font-size: 24px !important;
+    left: 0px;
+    top: 0px;
+}
+
+/* 3. Volume Musik */
+.settings-popup .settings-row:nth-child(3) .settings-label {
+    font-size: 24px !important;
+    left: 0px;
+    top: 0px;
+}
+
+/* 4. Ukuran Teks */
+.settings-popup .settings-row:nth-child(4) .settings-label {
+    font-size: 24px !important;
+    left: 0px;
+    top: 0px;
+}
+
+/* 5. Cara Bermain */
+.settings-popup .settings-row:nth-child(5) .settings-label {
+    font-size: 24px !important;
+    left: 0px;
+    top: 0px;
+}
+
+/* 6. Akhiri setelah giliran ini */
+.settings-popup .settings-row:nth-child(6) .settings-label {
+    font-size: 22spx !important;
+    left: 0px;
+    top: 0px;
+}
+
+/* 7. Mulai ulang dari awal */
+.settings-popup .settings-row:nth-child(7) .settings-label {
+    font-size: 23px !important;
+    left: 0px;
+    top: 0px;
+}
+/* =====================================
+   TULISAN PENGATURAN MENJADI 2 BARIS
+===================================== */
+
+/* Akhiri setelah giliran ini */
+.settings-popup .settings-row:nth-child(6) .settings-label {
+    width: 130px !important;
+    max-width: 130px !important;
+
+    white-space: normal !important;
+    line-height: 1.1 !important;
+    text-align: left !important;
+}
+
+/* Mulai ulang dari awal */
+.settings-popup .settings-row:nth-child(7) .settings-label {
+    width: 130px !important;
+    max-width: 130px !important;
+
+    white-space: normal !important;
+    line-height: 1.1 !important;
+    text-align: left !important;
+}
+/* =====================================================
+   POLYNAGA - KONTROL UKURAN DAN POSISI 7 IKON
+   UBAH ANGKA SESUAI KEBUTUHAN
+===================================================== */
+
+
+/* AREA INDUK IKON: IZINKAN GAMBAR KELUAR DARI AREA */
+.settings-popup .settings-icon {
+    overflow: visible !important;
+    flex-shrink: 0 !important;
+}
+
+
+/* PENGATURAN DASAR SEMUA GAMBAR IKON */
+.settings-popup .settings-icon img {
+    width: var(--icon-size, 70px) !important;
+    height: var(--icon-size, 70px) !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    flex-shrink: 0 !important;
+
+    object-fit: contain !important;
+    display: block !important;
+
+    transform: translate(
+        var(--icon-x, 0px),
+        var(--icon-y, 0px)
+    ) !important;
+}
+
+
+/* ========================================
+   PENGATURAN POSISI IKON SECARA MANUAL
+======================================== */
+
+/* IKON EFEK SUARA */
+.settings-popup .sound-icon {
+    --icon-size: 60px;
+    --icon-x: 4px;
+    --icon-y: 34px;
+}
+
+/* IKON MUSIK LATAR */
+.settings-popup .music-icon {
+    --icon-size: 60px;
+    --icon-x: 4px;
+    --icon-y: 34px;
+}
+
+/* IKON VOLUME MUSIK */
+.settings-popup .volume-icon {
+    --icon-size: 58px;
+    --icon-x: 4px;
+    --icon-y: 34px;
+}
+
+/* IKON UKURAN TEKS */
+.settings-popup .text-icon {
+    --icon-size: 60px;
+    --icon-x: 4px;
+    --icon-y: 34px;
+}
+
+/* IKON CARA BERMAIN */
+.settings-popup .rules-icon {
+    --icon-x: 4px;
+    --icon-y: 34px;
+
+    width: 100% !important;
+    height: 55px !important;
+    min-height: 55px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+/* ==========================================
+   TOMBOL DURASI POLYNAGA MENGGUNAKAN PNG
+========================================== */
+
+/* SUSUNAN TOMBOL DURASI */
+.setup-content .durs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    position: relative;
+    left: 110px;
+    top: 10px;
+    transform: none;
+}
+
+/* PENGATURAN DASAR SEMUA TOMBOL */
+.setup-content .durs button {
+    flex: 0 0 180px !important;
+    width: 180px !important;
+    min-width: 180px !important;
+    height: 60px !important;
+    min-height: 60px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    background-color: transparent !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+
+    font-size: 0 !important;
+    color: transparent !important;
+
+    box-shadow: none !important;
+    cursor: pointer;
+
+    transition: transform 0.2s ease,
+                filter 0.2s ease;
+}
+
+/* GAMBAR TOMBOL 15 MENIT */
+.setup-content .durs button[data-d="15"] {
+    background-image: url("../assets/tombol-15-menit.png") !important;
+}
+
+/* GAMBAR TOMBOL 30 MENIT */
+.setup-content .durs button[data-d="30"] {
+    background-image: url("../assets/tombol-30-menit.png") !important;
+}
+
+/* GAMBAR TOMBOL 45 MENIT */
+.setup-content .durs button[data-d="45"] {
+    background-image: url("../assets/tombol-45-menit.png") !important;
+}
+
+/* TOMBOL YANG SEDANG DIPILIH */
+.setup-content .durs button.sel {
+    filter: brightness(1.12)
+            drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+
+    transform: translateY(-3px);
+}
+
+/* EFEK KETIKA KURSOR DIARAHKAN */
+.setup-content .durs button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-3px);
+}
+
+/* EFEK KETIKA TOMBOL DIKLIK */
+.setup-content .durs button:active {
+    transform: translateY(2px);
+}
+
+/* ==========================================
+   POLYNAGA - TOMBOL MULAI & CARA BERMAIN PNG
+========================================== */
+
+/* PENGATURAN DASAR KEDUA TOMBOL */
+.setup-content .setup-buttons button {
+    flex: 0 0 320px !important;
+
+    width: 320px !important;
+    min-width: 320px !important;
+
+    height: 110px !important;
+    min-height: 110px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    background-color: transparent !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+
+    box-shadow: none !important;
+    text-shadow: none !important;
+
+    font-size: 0 !important;
+    color: transparent !important;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease,
+                filter 0.2s ease;
+}
+
+/* GAMBAR TOMBOL MULAI PETUALANGAN */
+.setup-content #start {
+    background-image: url("../assets/tombol-mulai.png") !important;
+    transform: none;
+}
+
+/* GAMBAR TOMBOL CARA BERMAIN */
+.setup-content #how {
+    background-image: url("../assets/tombol-cara-bermain.png") !important;
+    transform: none;
+}
+
+/* SEMBUNYIKAN IKON LAMA */
+.setup-content #start img,
+.setup-content #how img {
+    display: none !important;
+}
+
+/* SEMBUNYIKAN TULISAN HTML LAMA
+   TULISAN SUDAH MENYATU DENGAN GAMBAR PNG */
+.setup-content #start span,
+.setup-content #how span {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+}
+
+/* EFEK KETIKA KURSOR DIARAHKAN */
+.setup-content #start:hover:not(:disabled),
+.setup-content #how:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.1);
+}
+
+/* EFEK KETIKA DIKLIK */
+.setup-content #start:active:not(:disabled),
+.setup-content #how:active {
+    transform: translateY(3px);
+}
+
+/* TOMBOL MULAI KETIKA NONAKTIF */
+.setup-content #start:disabled {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==========================================
+   POLYNAGA - PENGATURAN FINAL
+   VERSI BERSIH
+========================================== */
+
+/* AREA ISI PANEL */
+.settings-popup .settings-body {
+    position: absolute !important;
+
+    left: 14% !important;
+    right: 14% !important;
+    top: 18% !important;
+    bottom: 12% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+
+    gap: 5px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+/* ==========================================
+   LIMA BARIS PENGATURAN
+========================================== */
+
+.settings-popup .settings-row:not(.end-turn-row):not(.restart-row) {
+    display: grid !important;
+
+    grid-template-columns: 58px 120px minmax(0, 1fr) !important;
+    column-gap: 5px !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+    height: 55px !important;
+    min-height: 55px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+}
+
+/* AREA IKON */
+.settings-popup .settings-icon {
+    width: 58px !important;
+    min-width: 58px !important;
+    height: 55px !important;
+
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    overflow: visible !important;
+    flex-shrink: 0 !important;
+}
+
+/* GAMBAR IKON */
+.settings-popup .settings-icon img {
+    width: var(--icon-size, 60px) !important;
+    height: var(--icon-size, 60px) !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: contain !important;
+    display: block !important;
+
+    transform: translate(
+        var(--icon-x, 0px),
+        var(--icon-y, 0px)
+    ) !important;
+}
+
+/* TULISAN PENGATURAN */
+.settings-popup .settings-label {
+    position: static !important;
+
+    width: 120px !important;
+    max-width: 120px !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #573015 !important;
+
+    font-size: 21px !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+/* ==========================================
+   POSISI TOMBOL KONTROL SEBELAH KANAN
+========================================== */
+
+/* HIDUP / MATI */
+.settings-popup .settings-toggle {
+    justify-self: end !important;
+
+    width: 110px !important;
+    min-width: 110px !important;
+    height: 42px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* SLIDER VOLUME */
+.settings-popup .volume-control {
+    display: flex !important;
+
+    justify-content: flex-end !important;
+    align-items: center !important;
+
+    width: 100% !important;
+    gap: 5px !important;
+
+    margin: 0 !important;
+}
+
+.settings-popup #sVolume {
+    flex: 1 !important;
+    width: 90px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+.settings-popup #sVolumeValue {
+    width: 35px !important;
+    min-width: 35px !important;
+
+    font-size: 17px !important;
+    text-align: right !important;
+}
+
+/* UKURAN TEKS */
+.settings-popup .settings-size-picker {
+    justify-self: end !important;
+    width: 110px !important;
+}
+
+.settings-popup .settings-select-trigger {
+    width: 110px !important;
+    height: 42px !important;
+    margin: 0 !important;
+}
+
+/* CARA BERMAIN */
+.settings-popup .settings-guide {
+    justify-self: end !important;
+
+    width: 135px !important;
+    min-width: 135px !important;
+    height: 43px !important;
+
+    margin: 0 !important;
+    padding: 0 5px !important;
+
+    font-size: 17px !important;
+    white-space: nowrap !important;
+}
+
+/* ==========================================
+   TOMBOL AKHIRI DAN MULAI ULANG
+========================================== */
+
+/* BARIS TOMBOL */
+.settings-popup .end-turn-row,
+.settings-popup .restart-row {
+    display: flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    width: 100% !important;
+    height: 62px !important;
+    min-height: 62px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+    box-sizing: border-box !important;
+}
+
+/* TOMBOL AKHIRI */
+.settings-popup .settings-end {
+    display: block !important;
+
+    width: 235px !important;
+    height: 62px !important;
+
+    min-width: 235px !important;
+    min-height: 62px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    background:
+        url("../assets/pengaturan/tombol-akhiri-baru.png")
+        center / contain no-repeat !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    font-size: 0 !important;
+    color: transparent !important;
+
+    cursor: pointer !important;
+}
+
+/* TOMBOL MULAI ULANG */
+.settings-popup .settings-restart {
+    display: block !important;
+
+    width: 235px !important;
+    height: 62px !important;
+
+    min-width: 235px !important;
+    min-height: 62px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    background:
+        url("../assets/pengaturan/tombol-restart-baru.png")
+        center / contain no-repeat !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    font-size: 0 !important;
+    color: transparent !important;
+
+    cursor: pointer !important;
+}
+
+/* ==========================================
+   TOMBOL KEMBALI KE GAME
+========================================== */
+
+.settings-popup .settings-back {
+    display: flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    align-self: center !important;
+
+    width: 250px !important;
+    height: 70px !important;
+
+    min-width: 250px !important;
+    min-height: 70px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    font-size: 0 !important;
+    color: transparent !important;
+
+    cursor: pointer !important;
+}
+
+.settings-popup .settings-back img {
+    display: block !important;
+
+    position: static !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: contain !important;
+}
+
+/* EFEK KLIK */
+.settings-popup .settings-end:active,
+.settings-popup .settings-restart:active,
+.settings-popup .settings-back:active {
+    transform: scale(.96);
+}
+
+/* ==========================================
+   AKHIR CSS PENGATURAN
+========================================== */
+
+
+/* =========================================
+   POSISI TULISAN PENGATURAN - MANUAL
+========================================= */
+
+/* EFEK SUARA */
+.settings-popup .sound-row .settings-label {
+    transform: translate(10px, 28px) !important;
+}
+
+/* MUSIK LATAR */
+.settings-popup .music-row .settings-label {
+    transform: translate(10px, 26px) !important;
+}
+
+/* VOLUME MUSIK */
+.settings-popup .volume-row .settings-label {
+    transform: translate(10px, 26px) !important;
+}
+
+/* UKURAN TEKS */
+.settings-popup .text-row .settings-label {
+    transform: translate(10px, 27px) !important;
+}
+
+/* CARA BERMAIN */
+.settings-popup .rules-row .settings-label {
+    transform: translate(10px, 28px) !important;
+}
+
+/* ========================================
+   PENGATURAN POSISI TOMBOL KONTROL
+======================================== */
+
+/* TOMBOL HIDUP EFEK SUARA */
+.settings-popup .sound-row .settings-toggle {
+    position: relative !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* TOMBOL HIDUP MUSIK LATAR */
+.settings-popup .music-row .settings-toggle {
+    position: relative !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* SLIDER VOLUME MUSIK */
+.settings-popup .volume-row .volume-control {
+    position: relative !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* TOMBOL NORMAL */
+.settings-popup .text-row .settings-size-picker {
+    position: relative !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* TOMBOL LIHAT PANDUAN */
+.settings-popup .rules-row .settings-guide {
+    position: relative !important;
+    left: 0px;
+    top: 30px;
+}
+
+/* ========================================
+   PENGATURAN POSISI TOMBOL GAMBAR
+======================================== */
+
+/* TOMBOL AKHIRI SETELAH GILIRAN INI */
+.settings-popup .settings-end {
+    position: relative !important;
+
+    left: 0px;
+    top: 0px;
+}
+
+/* TOMBOL MULAI ULANG DARI AWAL */
+.settings-popup .settings-restart {
+    position: relative !important;
+
+    left: 0px;
+    top: 0px;
+}
+
+/* TOMBOL KEMBALI KE PERMAINAN */
+.settings-popup .settings-back {
+    position: relative !important;
+
+    left: 0px;
+    top: 97px;
+}
+
+/* =====================================
+   KHUSUS UKURAN TOMBOL KEMBALI GAME
+===================================== */
+
+.settings-popup .settings-back {
+    width: 270px !important;
+    height: 100px !important;
+
+    min-width: 270px !important;
+    min-height: 100px !important;
+
+    position: relative !important;
+
+    left: 0px !important;
+    top: 97px !important;
+
+    margin: 0 auto !important;
+}
+
+/* UKURAN GAMBAR TOMBOL */
+.settings-popup .settings-back img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+}
+
+/* ==========================================
+   PENGATURAN UKURAN TOMBOL AKHIRI GAME
+========================================== */
+
+/* TOMBOL AKHIRI SETELAH GILIRAN */
+.settings-popup .settings-end {
+    width: 260px !important;
+    height: 72px !important;
+
+    min-width: 260px !important;
+    min-height: 72px !important;
+
+    top: 50px !important;
+}
+
+/* TOMBOL MULAI ULANG DARI AWAL */
+.settings-popup .settings-restart {
+    width: 260px !important;
+    height: 72px !important;
+
+    min-width: 260px !important;
+    min-height: 72px !important;
+
+    top: 50px !important;
+}
+
+/* MENYESUAIKAN RUANG BARIS TOMBOL */
+.settings-popup .end-turn-row,
+.settings-popup .restart-row {
+    height: 60px !important;
+    min-height: 60px !important;
+}
+/* =========================================
+   SCROLL KHUSUS POPUP CARA BERMAIN
+========================================= */
+
+/* Area popup */
+#layers .overlay {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Kotak Cara Bermain */
+#layers .mcard.qcard {
+    max-height: 85% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    
+    scrollbar-width: thin;
+    scrollbar-color: #b9803f #f5e6c3;
+}
+
+/* Tampilan scrollbar Chrome */
+#layers .mcard.qcard::-webkit-scrollbar {
+    width: 10px;
+}
+
+#layers .mcard.qcard::-webkit-scrollbar-track {
+    background: #f5e6c3;
+    border-radius: 10px;
+}
+
+#layers .mcard.qcard::-webkit-scrollbar-thumb {
+    background: #b9803f;
+    border-radius: 10px;
+}
+
+#layers .mcard.qcard::-webkit-scrollbar-thumb:hover {
+    background: #8a5a2b;
+}
+
+/* ==========================================
+   SCROLL POPUP CARA BERMAIN POLYNAGA
+========================================== */
+
+/* ==========================================
+   POLYNAGA - POPUP CARA BERMAIN
+   POSISI TENGAH + SCROLL
+========================================== */
+
+/* Overlay kembali ke posisi tengah */
+.overlay.rules-overlay {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Kotak krem Cara Bermain */
+.overlay.rules-overlay .mcard.rules-modal {
+
+    width: 85%;
+    max-width: 1080px;
+    min-width: 620px;
+
+    height: auto !important;
+
+    max-height: calc(100% - 40px) !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    flex-shrink: 0;
+
+    margin: auto !important;
+
+    box-sizing: border-box !important;
+
+    scrollbar-width: thin;
+    scrollbar-color: #b9803f #f5e6c3;
+}
+
+/* Scrollbar Chrome */
+.overlay.rules-overlay .mcard.rules-modal::-webkit-scrollbar {
+    width: 10px;
+}
+
+.overlay.rules-overlay .mcard.rules-modal::-webkit-scrollbar-track {
+    background: #f5e6c3;
+    border-radius: 10px;
+}
+
+.overlay.rules-overlay .mcard.rules-modal::-webkit-scrollbar-thumb {
+    background: #b9803f;
+    border-radius: 10px;
+}
+
+/* ==========================================
+   CARA BERMAIN POLYNAGA
+   SCROLL AKTIF + POSISI TETAP DI TENGAH
+========================================== */
+
+/* Overlay popup */
+#layers .rules-overlay {
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+}
+
+/* Kotak krem */
+#layers .rules-overlay .mcard {
+
+    width: 1200px !important;
+max-width: 92% !important;
+
+height: auto !important;
+max-height: 560px !important;
+
+overflow-y: scroll !important;
+overflow-x: hidden !important;
+
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #b9803f #f5e6c3 !important;
+}
+
+/* Scrollbar Chrome */
+#layers .rules-overlay .mcard::-webkit-scrollbar {
+    width: 10px;
+}
+
+#layers .rules-overlay .mcard::-webkit-scrollbar-track {
+    background: #f5e6c3;
+    border-radius: 10px;
+}
+
+#layers .rules-overlay .mcard::-webkit-scrollbar-thumb {
+    background: #b9803f;
+    border-radius: 10px;
+}
+
+/* ==========================================
+   TOMBOL KARTU CAKRAWALA
+========================================== */
+
+#stage #btnCakrawala {
+    position: absolute !important;
+
+    /* POSISI */
+    left: 20px !important;
+    top: 145px !important;
+
+    /* UKURAN */
+    width: 300px !important;
+    height: 65px !important;
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: row !important;
+
+    gap: 12px !important;
+    padding: 0 15px !important;
+
+    /* DESAIN EMAS 3D */
+    background: linear-gradient(
+        180deg,
+        #ffe99a 0%,
+        #ffc43d 40%,
+        #e58a16 75%,
+        #a95713 100%
+    ) !important;
+
+    border: 4px solid #ffe18a !important;
+    border-radius: 22px !important;
+
+    color: #fff !important;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+
+    white-space: nowrap !important;
+    text-shadow: 2px 3px 3px #75400e !important;
+
+    box-shadow:
+        0 6px 0 #75400e,
+        inset 0 3px 5px rgba(255,255,255,.5),
+        0 8px 12px rgba(0,0,0,.3) !important;
+
+    z-index: 20 !important;
+}
+
+#stage #btnCakrawala span {
+    font-size: 25px !important;
+    flex-shrink: 0 !important;
+}
+/* ==========================================
+   POSISI POSTER KARTU CAKRAWALA
+========================================== */
+
+#cakrawalaModal {
+    position: absolute !important;
+    inset: 0 !important;
+
+    display: block;
+    background: transparent !important;
+
+    z-index: 9999 !important;
+}
+
+#cakrawalaModal[hidden] {
+    display: none !important;
+}
+
+.cakrawala-container {
+    position: absolute !important;
+
+    /* POSISI DI BAWAH LOGO */
+    left: 20px !important;
+    top: 115px !important;
+
+    /* UKURAN POSTER */
+    width: 230px !important;
+    height: 345px !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    aspect-ratio: 2 / 3 !important;
+}
+
+.cakrawala-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+/* POSTER KARTU CAKRAWALA DI HALAMAN UTAMA */
+
+#cakrawalaModal {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    background: transparent !important;
+    pointer-events: none !important;
+    z-index: 30 !important;
+}
+
+.cakrawala-container {
+    position: absolute !important;
+
+    left: 20px !important;
+    top: 115px !important;
+
+    width: 300px !important;
+    height: 450px !important;
+
+    max-width: none !important;
+    max-height: none !important;
+}
+
+.cakrawala-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Sembunyikan tombol interaktif sementara */
+.cakrawala-option,
+.cakrawala-start,
+.cakrawala-close {
+    display: none !important;
+}
+
+/* PERKECIL POSTER KARTU CAKRAWALA */
+
+#stage #cakrawalaModal .cakrawala-container {
+    transform: scale(0.73) !important;
+    transform-origin: top left !important;
+
+    left: 10px !important;
+    top: 300px !important;
+}
+/* SEMBUNYIKAN TOMBOL KARTU CAKRAWALA LAMA */
+#stage #btnCakrawala {
+    display: none !important;
+}
+/* TOMBOL KLIK DISINI KARTU CAKRAWALA */
+
+#btnKlikCakrawala {
+    position: absolute !important;
+
+    left: 5% !important;
+    top: 84% !important;
+
+    width: 90% !important;
+    height: 14% !important;
+
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+
+    cursor: pointer !important;
+    z-index: 50 !important;
+}
+
+#btnKlikCakrawala img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+/* SEMBUNYIKAN TOMBOL KARTU LAMA DI BAWAH */
+#btnPamali,
+#btnKuis {
+    display: none !important;
+}
+
+/* =====================================
+   MENU PILIHAN KARTU CAKRAWALA
+===================================== */
+
+#btnKlikCakrawala {
+    pointer-events: auto !important;
+}
+
+#cakrawalaKategori {
+    position: absolute;
+    left: 350px;
+    top: 300px;
+    width: 850px;
+    min-height: 270px;
+    padding: 25px;
+    box-sizing: border-box;
+
+    background: linear-gradient(145deg, #fff4c9, #f5c76c);
+    border: 7px solid #a96618;
+    border-radius: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
+
+    z-index: 1000;
+    pointer-events: auto;
+    text-align: center;
+}
+
+#cakrawalaKategori[hidden] {
+    display: none !important;
+}
+
+#cakrawalaKategori h2 {
+    margin: 0 0 8px;
+    color: #713d12;
+    font-size: 30px;
+}
+
+#cakrawalaKategori p {
+    margin: 0 0 22px;
+    color: #70451f;
+    font-size: 18px;
+}
+
+.kategori-kartu {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.pilih-kartu {
+    flex: 1;
+    min-height: 115px;
+    border: 4px solid #fff0b2;
+    border-radius: 18px;
+    color: white;
+    font-size: 19px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 5px 0 rgba(0,0,0,.25);
+}
+
+.pilih-kartu span {
+    display: block;
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.pilih-kartu:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.12);
+}
+
+.pancasila {
+    background: linear-gradient(#e9b63e, #b97912);
+}
+
+.sejarah {
+    background: linear-gradient(#399b54, #176132);
+}
+
+.pamali {
+    background: linear-gradient(#bd6740, #79351f);
+}
+
+#tutupKategori {
+    margin-top: 22px;
+    padding: 10px 35px;
+    border: 3px solid white;
+    border-radius: 25px;
+    background: #8b5423;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.pilih-kartu.selected {
+    outline: 5px solid #fff;
+    transform: translateY(-5px);
+    filter: brightness(1.2);
+}
+
+/* =========================================
+   KARTU KUIS ASLI POLYNAGA - INTERAKTIF
+========================================= */
+
+#layers .mcard.card-question-modal {
+    width: 550px;
+    min-width: 0;
+    max-width: 90%;
+    padding: 14px;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.interactive-card-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 0;
+}
+
+.interactive-card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Area pilihan jawaban */
+.card-hotspot {
+    position: absolute;
+    left: 16%;
+    width: 68%;
+    height: 9%;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+    padding: 0;
+}
+
+.card-hotspot:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
+.card-hotspot.selected {
+    background: rgba(255, 215, 0, 0.30);
+    border-color: #ffca28;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
+}
+
+.card-hotspot.right {
+    background: rgba(55, 190, 55, 0.35);
+    border-color: #26a52a;
+}
+
+.card-hotspot.wrong {
+    background: rgba(230, 40, 40, 0.35);
+    border-color: #e53935;
+}
+
+.card-hotspot:disabled {
+    cursor: default;
+}
+
+/* Posisi pilihan Kartu Pancasila */
+.cat-pancasila .card-hotspot:nth-of-type(1) { top: 35.8%; }
+.cat-pancasila .card-hotspot:nth-of-type(2) { top: 45.5%; }
+.cat-pancasila .card-hotspot:nth-of-type(3) { top: 55.3%; }
+.cat-pancasila .card-hotspot:nth-of-type(4) { top: 65.0%; }
+.cat-pancasila .card-hotspot:nth-of-type(5) { top: 74.7%; }
+
+/* Posisi pilihan Kartu Sejarah */
+.cat-sejarah .card-hotspot:nth-of-type(1) { top: 34.8%; }
+.cat-sejarah .card-hotspot:nth-of-type(2) { top: 45.3%; }
+.cat-sejarah .card-hotspot:nth-of-type(3) { top: 56.0%; }
+.cat-sejarah .card-hotspot:nth-of-type(4) { top: 66.7%; }
+.cat-sejarah .card-hotspot:nth-of-type(5) { top: 77.4%; }
+
+/* Posisi pilihan Kartu Pamali */
+.cat-pamali .card-hotspot:nth-of-type(1) { top: 34.5%; }
+.cat-pamali .card-hotspot:nth-of-type(2) { top: 46.0%; }
+.cat-pamali .card-hotspot:nth-of-type(3) { top: 57.5%; }
+.cat-pamali .card-hotspot:nth-of-type(4) { top: 69.0%; }
+.cat-pamali .card-hotspot:nth-of-type(5) { top: 80.5%; }
+
+/* Tombol CEK JAWABAN */
+.card-check {
+    position: absolute;
+    left: 29%;
+    width: 42%;
+    height: 8%;
+    top: 89.5%;
+    border: 0;
+    border-radius: 30px;
+    background: transparent;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.cat-sejarah .card-check {
+    top: 89.5%;
+}
+
+.cat-pancasila .card-check {
+    top: 89.5%;
+}
+
+.cat-pamali .card-check {
+    top: 90.5%;
+}
+
+.card-check:disabled {
+    cursor: not-allowed;
+}
+
+.card-check:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.15);
+    outline: 3px solid rgba(255, 220, 80, 0.8);
+}
+
+/* Hasil jawaban */
+.card-question-feedback {
+    min-height: 32px;
+    margin: 10px 5px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.card-question-feedback.ok {
+    color: #26852b;
+}
+
+.card-question-feedback.bad {
+    color: #c62828;
+}
+
+.card-question-modal .qhead {
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.card-question-modal .qfoot {
+    margin-top: 5px;
+}
+/* =====================================
+   PERBAIKAN TOMBOL LANJUT KARTU KUIS
+===================================== */
+
+.card-question-modal {
+    max-height: calc(100vh - 40px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+}
+
+/* Area tombol Lanjut */
+.card-question-modal .qfoot {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    background: #fff7e5;
+}
+
+/* Pastikan tombol Lanjut muncul setelah jawaban diperiksa */
+.card-question-modal #cardQuestionNext:not([hidden]) {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 21;
+}
+
+/* Tombol tetap tersembunyi sebelum jawaban diperiksa */
+.card-question-modal #cardQuestionNext[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   PERBAIKAN POSISI SHADING KARTU KUIS
+   ========================================= */
+
+/* KARTU PANCASILA */
+.cat-pancasila .card-hotspot:nth-of-type(1) { top: 34.5%; }
+.cat-pancasila .card-hotspot:nth-of-type(2) { top: 44.2%; }
+.cat-pancasila .card-hotspot:nth-of-type(3) { top: 53.9%; }
+.cat-pancasila .card-hotspot:nth-of-type(4) { top: 63.6%; }
+.cat-pancasila .card-hotspot:nth-of-type(5) { top: 73.3%; }
+
+/* KARTU SEJARAH */
+.cat-sejarah .card-hotspot:nth-of-type(1) { top: 33.8%; }
+.cat-sejarah .card-hotspot:nth-of-type(2) { top: 44.3%; }
+.cat-sejarah .card-hotspot:nth-of-type(3) { top: 55.0%; }
+.cat-sejarah .card-hotspot:nth-of-type(4) { top: 65.7%; }
+.cat-sejarah .card-hotspot:nth-of-type(5) { top: 76.4%; }
+
+/* KARTU PAMALI */
+.cat-pamali .card-hotspot:nth-of-type(1) { top: 33.5%; }
+.cat-pamali .card-hotspot:nth-of-type(2) { top: 44.5%; }
+.cat-pamali .card-hotspot:nth-of-type(3) { top: 55.5%; }
+.cat-pamali .card-hotspot:nth-of-type(4) { top: 66.5%; }
+.cat-pamali .card-hotspot:nth-of-type(5) { top: 77.5%; }
+
+/* AREA TOMBOL CEK JAWABAN */
+.cat-pancasila .card-check {
+    top: 85%;
+}
+
+.cat-sejarah .card-check {
+    top: 86.5%;
+}
+
+.cat-pamali .card-check {
+    top: 88%;
+}
+
+/* Perbaikan khusus shading opsi E kartu Pancasila */
+.cat-pancasila .card-hotspot:nth-of-type(5) {
+    height: 7%;
+}
+
+/* =========================================
+   PERBESAR BINGKAI BAMBU POPUP KARTU KUIS
+========================================= */
+
+#layers .mcard.card-question-modal {
+    position: relative;
+    isolation: isolate;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Lapisan gambar bingkai */
+#layers .mcard.card-question-modal::before {
+    content: "";
+    position: absolute;
+    inset: -45px;
+    background-image: url("../assets/desain-popup/bingkai-kartu.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Pastikan seluruh isi popup berada di atas bingkai */
+#layers .mcard.card-question-modal > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hilangkan latar tambahan pada area tombol */
+.card-question-modal .qfoot {
+    background: transparent !important;
+}
+
+/* Memperkecil kartu kuis Pamali saja */
+.interactive-card-wrap.cat-pamali {
+    width: 100%;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Memperkecil kartu kuis Sejarah saja */
+.interactive-card-wrap.cat-sejarah {
+    width: 85%;
+    max-width: 425px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Memperkecil kartu kuis Pancasila saja */
+.interactive-card-wrap.cat-pancasila {
+    width: 85%;
+    max-width: 425px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================================
+   TOMBOL PNG LANJUT KARTU KUIS
+========================================= */
+
+.card-question-modal #cardQuestionNext:not([hidden]) {
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+
+    width: 220px !important;
+    height: 74px !important;
+    min-width: 0 !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border: none !important;
+    border-radius: 0 !important;
+
+    background-color: transparent !important;
+    background-image: url("../assets/tombol-baru/tombol-lanjut%20kuis.png") !important;
+    background-position: center !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+
+    box-shadow: none !important;
+    color: transparent !important;
+    text-shadow: none !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+.card-question-modal #cardQuestionNext:not([hidden]):hover {
+    filter: brightness(1.08);
+}
+
+.card-question-modal #cardQuestionNext:not([hidden]):active {
+    transform: scale(0.97);
+    box-shadow: none !important;
+}
+/* BACKGROUND POPUP BEBAS SINGGAH */
+#layers .mcard.free-modal {
+    position: relative;
+    isolation: isolate;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+#layers .mcard.free-modal::before {
+    content: "";
+    position: absolute;
+inset: -80px;
+    background-image: url("../assets/desain-popup/bingkai-bebas%20singgah.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#layers .mcard.free-modal > * {
+    position: relative;
+    z-index: 1;
+}
+#layers .mcard.free-modal {
+    position: relative;
+    isolation: isolate;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+/* FONT PETUNJUK POPUP BEBAS SINGGAH */
+#layers .mcard.free-modal .center-t {
+    font-family: "Baloo 2", sans-serif !important;
+    font-size: 24px;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+    text-shadow: 0 2px 3px rgba(0,0,0,.4);
+}
+
+/* PERBAIKAN BINGKAI POPUP BEBAS SINGGAH */
+#layers .mcard.free-modal {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    width: min(92vw, 760px);
+    max-width: 760px;
+    max-height: 88vh;
+
+     overflow: visible !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    padding: 75px 65px 55px;
+}
+
+#layers .mcard.free-modal::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+
+    background-image: url("../assets/desain-popup/bingkai-bebas%20singgah.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+#layers .mcard.free-modal > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* GAMBAR PILIHAN BEBAS SINGGAH TANPA CAPTION */
+#layers .free-modal .tilepick {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    column-gap: 10px; /* Jarak kanan-kiri tetap */
+    row-gap: 1px;     /* Jarak atas-bawah diperkecil */
+
+    margin-top: 10px;
+}
+
+#layers .free-modal .tilepick button {
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+     opacity: 1;
+}
+
+#layers .free-modal .tilepick button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+
+    border-radius: 8px;
+
+    /* Bayangan lembut mengikuti gambar */
+    box-shadow: 0 3px 5px rgba(45, 35, 15, 0.22);
+
+    /* Gambar tetap terlihat utuh */
+    opacity: 1;
+    filter: none;
+}
+
+#layers .free-modal .tilepick button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.04);
+}
+
+/* Tampilan layar kecil */
+@media (max-width: 600px) {
+    #layers .mcard.free-modal {
+        width: 94vw;
+        padding: 65px 30px 40px;
+    }
+
+    #layers .free-modal .tilepick {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    #layers .free-modal .tilepick button img {
+        height: 75px;
+    }
+}
+/* BACKGROUND POPUP PERMAINAN SELESAI */
+#layers .mcard.end-modal {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+
+    width: min(95vw, 900px);
+    max-width: 900px;
+    max-height: 88vh;
+
+    overflow: visible !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+
+    padding: 150px 80px 55px;
+}
+
+/* GAMBAR BINGKAI PERMAINAN SELESAI */
+#layers .mcard.end-modal::before {
+    content: "";
+    position: absolute;
+    inset: -75px;
+
+    background-image: url("../assets/desain-popup/bingkai-permainan%20selesai.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* POSISI ISI POPUP */
+#layers .mcard.end-modal > * {
+    position: relative;
+    z-index: 1;
+}
+/* =====================================
+   TOMBOL GAMBAR KARTU FUN FACT
+===================================== */
+
+.ff-button-group {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.ff-image-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 270px;
+    max-width: 44%;
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.ff-image-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.ff-image-button:hover {
+    transform: scale(1.04);
+}
+
+.ff-image-button:active {
+    transform: scale(0.96);
+}
+
+.ff-image-button:focus-visible {
+    outline: 3px solid #d99a28;
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+@media (max-width: 600px) {
+    .ff-button-group {
+        gap: 8px;
+    }
+
+    .ff-image-button {
+        width: 46%;
+        max-width: 46%;
+    }
+}
+.info-image-button {
+  display: block;
+  width: 220px;
+  max-width: 75%;
+  margin: 20px auto 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.info-image-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ==========================================
+   PERAPIAN ISI POPUP PERMAINAN SELESAI
+========================================== */
+
+/* Area keseluruhan isi */
+#layers .mcard.end-modal .end-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 740px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Nama pemain pemenang */
+#layers .mcard.end-modal .end-winner {
+    width: 100%;
+
+    margin: 0 0 4px;
+    padding: 0 8px;
+
+    text-align: center;
+
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+/* Daftar peringkat */
+#layers .mcard.end-modal .end-ranking {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Setiap baris pemain */
+#layers .mcard.end-modal .end-rank {
+    width: 100%;
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 7px 14px;
+
+    background: #fff;
+    border: 2px solid #e3cf9c;
+    border-radius: 17px;
+
+    box-sizing: border-box;
+}
+
+/* Baris pemain peringkat pertama */
+#layers .mcard.end-modal .end-rank.first {
+    background: linear-gradient(
+        180deg,
+        #fff6c4,
+        #ffe27a
+    );
+
+    border-color: #e3a60a;
+}
+
+/* Medali */
+#layers .mcard.end-modal .end-medal {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#layers .mcard.end-modal .end-medal img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Foto/avatar pemain */
+#layers .mcard.end-modal .end-avatar {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+/* Informasi pemain */
+#layers .mcard.end-modal .end-player-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+}
+
+/* Nama pemain */
+#layers .mcard.end-modal .end-player-name {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+/* Jumlah jawaban benar dan salah */
+#layers .mcard.end-modal .end-player-score {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #6a5535;
+}
+
+/* Poin pemain */
+#layers .mcard.end-modal .end-points {
+    flex: 0 0 auto;
+
+    font-size: 25px;
+    font-weight: 900;
+    color: #a05a00;
+
+    white-space: nowrap;
+}
+
+/* Bagian refleksi */
+#layers .mcard.end-modal .end-reflection {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Judul refleksi */
+#layers .mcard.end-modal .end-reflection h2 {
+    margin: 0 0 4px;
+
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Daftar pertanyaan refleksi */
+#layers .mcard.end-modal .end-reflection ul {
+    margin: 0;
+    padding-left: 25px;
+}
+
+/* Setiap pertanyaan */
+#layers .mcard.end-modal .end-reflection li {
+    margin: 4px 0;
+
+    font-size: 12px;
+    line-height: 1.25;
+    
+}
+/* Tulisan pertanyaan refleksi */
+#layers .mcard.end-modal .end-reflection li {
+    margin: 3px 0;
+    padding: 0;
+
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.2;
+
+    color: #493018 !important;
+
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Area tombol Main Lagi */
+#layers .mcard.end-modal .end-button-area {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 5px;
+     transform: translateY(-8px);
+}
+
+/* Tombol Main Lagi */
+#layers .mcard.end-modal .end-button-area button {
+    display: block;
+
+    width: 210px;
+    max-width: 65%;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+/* Gambar tombol */
+#layers .mcard.end-modal .end-button-area button img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+/* Menggeser seluruh isi hasil akhir ke atas */
+#layers .mcard.end-modal .end-content {
+    transform: translateY(-90px);
+}
+
+/* ==========================================
+   PERPUSTAKAAN KARTU CAKRAWALA
+========================================== */
+
+.pilih-kartu.funfact {
+    background: linear-gradient(#4c9ac7, #205c91);
+}
+
+.cakrawala-library {
+    position: absolute;
+    left: 350px;
+    top: 300px;
+    width: 850px;
+    max-height: 570px;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: linear-gradient(145deg, #fff4c9, #f5c76c);
+    border: 7px solid #a96618;
+    border-radius: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.5);
+
+    z-index: 1001;
+    pointer-events: auto;
+    text-align: center;
+}
+
+.cakrawala-library[hidden] {
+    display: none !important;
+}
+
+.cakrawala-library h2 {
+    margin: 0 0 8px;
+    color: #713d12;
+    font-size: 30px;
+}
+
+.cakrawala-library > p {
+    color: #70451f;
+    font-size: 18px;
+}
+
+.cakrawala-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.cakrawala-card-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 13px 18px;
+
+    border: 3px solid #d5a44d;
+    border-radius: 14px;
+    background: #fffaf0;
+    color: #633b16;
+
+    font-size: 19px;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cakrawala-card-item:hover {
+    background: #ffe6a6;
+    transform: translateX(4px);
+}
+
+.cakrawala-card-number {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #9b6128;
+    color: white;
+}
+
+.cakrawala-card-arrow {
+    margin-left: auto;
+    font-size: 28px;
+}
+
+.cakrawala-back {
+    margin-top: 20px;
+    padding: 11px 25px;
+    border: 3px solid #fff0c0;
+    border-radius: 24px;
+    background: #8b5423;
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cakrawala-detail-content {
+    margin-top: 15px;
+    padding: 20px;
+    border: 3px solid #d5a44d;
+    border-radius: 18px;
+    background: #fffaf0;
+    color: #573516;
+    text-align: left;
+}
+
+.cakrawala-label {
+    margin-bottom: 12px;
+    color: #a36a24;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.cakrawala-detail-content h3 {
+    margin: 0 0 18px;
+    color: #704018;
+    font-size: 23px;
+    line-height: 1.35;
+}
+
+.cakrawala-options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.cakrawala-option {
+    padding: 12px;
+    border: 2px solid #e5d3ad;
+    border-radius: 12px;
+    background: white;
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.cakrawala-option.correct,
+.cakrawala-pamali-option.correct {
+    border-color: #4c9b50;
+    background: #e7f5df;
+}
+
+.cakrawala-option span {
+    float: right;
+    color: #26852b;
+    font-weight: 900;
+}
+
+.cakrawala-answer,
+.cakrawala-explanation {
+    margin-top: 15px;
+    padding: 14px;
+    border-radius: 12px;
+    background: #f8e7bd;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.cakrawala-explanation p {
+    margin: 6px 0 0;
+}
+
+.cakrawala-story {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.cakrawala-detail-content h4 {
+    margin: 18px 0 10px;
+    font-size: 19px;
+}
+
+.cakrawala-pamali-option {
+    margin-top: 10px;
+    padding: 13px;
+    border: 2px solid #e5d3ad;
+    border-radius: 12px;
+    background: white;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.cakrawala-pamali-option p {
+    margin: 6px 0;
+}
+
+.cakrawala-pamali-option small {
+    display: block;
+    color: #76552f;
+    font-size: 14px;
+}
+
+.cakrawala-pamali-option strong {
+    display: block;
+    margin-top: 7px;
+    color: #26852b;
+}
+
+.funfact-detail {
+    text-align: center;
+}
+
+.cakrawala-funfact-image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 390px;
+    margin: 15px auto;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.cakrawala-image-caption {
+    color: #89612d;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.cakrawala-detail-buttons {
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .cakrawala-library {
+        left: 320px;
+        width: 650px;
+        max-height: 500px;
+        padding: 18px;
+    }
+}
+
+/* ==========================================
+   PERPUSTAKAAN GAMBAR KARTU CAKRAWALA
+========================================== */
+
+.pilih-kartu.funfact {
+    background: linear-gradient(#4c9ac7, #205c91);
+}
+
+/* Layar gelap di atas seluruh permainan */
+#cakrawalaLibraryOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(20, 13, 5, .82);
+}
+
+#cakrawalaLibraryOverlay[hidden] {
+    display: none !important;
+}
+
+/* Jendela utama */
+.cakrawala-library-window {
+    position: relative;
+    width: min(1100px, 96vw);
+    height: min(790px, 92vh);
+    padding: 25px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    background: linear-gradient(145deg, #fff3c9, #e8b968);
+    border: 7px solid #995b1e;
+    border-radius: 28px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.6);
+}
+
+/* Tombol tutup */
+.cakrawala-library-close {
+    position: absolute;
+    z-index: 5;
+    top: 12px;
+    right: 15px;
+    width: 43px;
+    height: 43px;
+
+    border: 3px solid white;
+    border-radius: 50%;
+    background: #d9362b;
+    color: white;
+    font-size: 23px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+/* Area isi */
+.cakrawala-library-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 5px 12px 20px;
+    text-align: center;
+}
+
+.cakrawala-library-content h2 {
+    margin: 5px 55px 5px;
+    color: #704018;
+    font-size: 29px;
+    font-weight: 900;
+}
+
+.cakrawala-library-instruction {
+    margin: 5px 0 20px;
+    color: #795326;
+    font-size: 16px;
+}
+
+/* Daftar gambar kartu */
+.cakrawala-image-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 17px;
+    margin: 20px auto;
+}
+
+.cakrawala-image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+
+    border: 3px solid #c18a3b;
+    border-radius: 15px;
+    background: #fffaf0;
+    box-shadow: 0 4px 7px rgba(0,0,0,.16);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.cakrawala-image-item:hover {
+    transform: translateY(-5px);
+    border-color: #8a4c16;
+    background: #fff0c5;
+}
+
+.cakrawala-image-item img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: contain;
+}
+
+.cakrawala-image-item span {
+    color: #68401d;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+/* Tampilan gambar kartu secara utuh */
+.cakrawala-full-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 155px);
+    min-height: 250px;
+    margin: 10px auto;
+}
+
+.cakrawala-full-card img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 7px 10px rgba(0,0,0,.25));
+}
+
+.cakrawala-detail-caption {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 8px 0;
+    color: #704018;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.cakrawala-detail-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cakrawala-library-back {
+    padding: 11px 20px;
+    border: 3px solid #fff0c0;
+    border-radius: 22px;
+    background: #8b5423;
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.cakrawala-library-back:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+/* Tampilan layar lebih kecil */
+@media (max-width: 750px) {
+    .cakrawala-library-window {
+        width: 96vw;
+        height: 94vh;
+        padding: 15px;
+    }
+
+    .cakrawala-image-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .cakrawala-image-item img {
+        height: 145px;
+    }
+
+    .cakrawala-library-content h2 {
+        font-size: 22px;
+    }
+}
+
+
+/* ==========================================
+   PERBAIKAN UKURAN TOMBOL PNG CAKRAWALA
+========================================== */
+
+#cakrawalaKategori .kategori-kartu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0;
+    margin-top: 5px;
+}
+
+/* Ukuran area masing-masing tombol */
+#cakrawalaKategori .pilih-kartu {
+    flex: 0 0 170px;
+
+    width: 170px;
+    height: 145px;
+    min-height: 145px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 12px;
+
+    box-shadow: none !important;
+    overflow: visible;
+
+    cursor: pointer;
+}
+
+/* Memperbesar gambar PNG */
+#cakrawalaKategori .pilih-kartu img {
+    display: block;
+
+    width: 155%;
+    height: 155%;
+
+    max-width: none;
+
+    object-fit: contain;
+    object-position: center;
+
+    pointer-events: none;
+}
+
+/* Efek hover */
+#cakrawalaKategori .pilih-kartu:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.12);
+}
+
+/* Efek tombol terpilih */
+#cakrawalaKategori .pilih-kartu.selected {
+    outline: 3px solid white;
+    transform: translateY(-5px);
+}
+
+/* ==========================================
+   TOMBOL PNG KEMBALI CAKRAWALA
+========================================== */
+
+#tutupKategori {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 87        b     bepx;
+
+margin: 30px auto 0;
+    padding: 0;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
+
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+/* Gambar tombol kembali */
+#tutupKategori img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+
+    pointer-events: none;
+}
+
+/* Efek saat diarahkan kursor */
+#tutupKategori:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.12);
+}

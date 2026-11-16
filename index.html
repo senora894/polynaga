@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POLYNAGA – Petualangan Nilai & Budaya Kampung Naga</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="rotate"><div>📱↻<br>Putar perangkatmu ke mode <b>landscape</b><br>agar papan permainan terlihat penuh.</div></div>
+
+  <!-- Panggung berukuran tetap 1672x941, otomatis diskalakan mengikuti layar -->
+  <div id="stage">
+    <div id="bg"></div>
+
+    <!-- Logo POLYNAGA Baru -->
+<div id="logo">
+  <img src="assets/logo-polynaga.png" alt="Logo POLYNAGA">
+</div>
+
+<!-- TOMBOL KARTU CAKRAWALA -->
+<button id="btnCakrawala" class="cakrawala-btn">
+    <span>📚</span>
+    Kartu Cakrawala
+</button>
+<!-- MENU KARTU CAKRAWALA -->
+<div id="cakrawalaModal" class="cakrawala-modal">
+
+    <div class="cakrawala-container">
+
+        <!-- GAMBAR DESAIN KARTU -->
+        <img
+            src="assets/kartu-cakrawala.png"
+            alt="Menu Kartu Cakrawala"
+            class="cakrawala-image"
+        >
+<button id="btnKlikCakrawala" class="btn-klik-cakrawala">
+    <img src="assets/klik-disini.png" alt="Klik Disini">
+</button>
+       
+<!-- MENU PILIHAN KATEGORI KARTU -->
+
+<!-- MENU PILIHAN KATEGORI KARTU -->
+<div id="cakrawalaKategori" hidden>
+
+    <h2>Pilih Kartu Cakrawala</h2>
+    <p>Pilih kategori kartu yang ingin dimainkan!</p>
+
+    <div class="kategori-kartu">
+
+        <!-- TOMBOL PANCASILA -->
+        <button
+            class="pilih-kartu pancasila"
+            data-category="pancasila"
+            type="button">
+
+            <img
+                src="assets/tombol-kartu-pancasila.png"
+                alt="Kartu Pancasila">
+        </button>
+
+        <!-- TOMBOL PAMALI -->
+        <button
+            class="pilih-kartu pamali"
+            data-category="pamali"
+            type="button">
+
+            <img
+                src="assets/tombol-kartu-pamali.png"
+                alt="Kartu Pamali">
+        </button>
+
+        <!-- TOMBOL SEJARAH -->
+        <button
+            class="pilih-kartu sejarah"
+            data-category="sejarah"
+            type="button">
+
+            <img
+                src="assets/tombol-kartu-sejarah.png"
+                alt="Kartu Sejarah">
+        </button>
+
+        <!-- TOMBOL FUN FACT -->
+        <button
+            class="pilih-kartu funfact"
+            data-category="funfact"
+            type="button">
+
+            <img
+                src="assets/tombol-kartu-funfact.png"
+                alt="Kartu Fun Fact">
+        </button>
+
+    </div>
+
+    
+<button id="tutupKategori" type="button">
+    <img
+        src="assets/tombol-kembali-cakrawala.png"
+        alt="Kembali">
+</button>
+
+
+</div>
+
+
+        <!-- TOMBOL TUTUP -->
+        <button
+            id="btnTutupCakrawala"
+            class="cakrawala-close"
+            aria-label="Tutup menu">
+            ✕
+        </button>
+
+    </div>
+</div>
+
+    <!-- Kartu pemain + skor -->
+    <div id="players"></div>
+
+    <!-- Tombol pengaturan & timer -->
+<button id="gear" aria-label="Pengaturan">
+    <img src="assets/pengaturan/ikon-pengaturan-baru.png" alt="Pengaturan">
+</button>
+    <div id="timer" title="Sisa waktu bermain">⏱ <span>--:--</span></div>
+
+    <!-- Papan Poin Modal Sosial -->
+    <div id="pointsign">
+      <div class="sg-icon">👥</div>
+      <div class="sg-text">
+        <div class="sg-label">Poin Modal<br>Sosial</div>
+        <div class="sg-name" id="sgName">—</div>
+        <div class="sg-pts">★ <span id="sgPts">0</span></div>
+      </div>
+    </div>
+
+    <!-- Papan permainan -->
+    <div id="boardwrap"><div id="board"></div></div>
+
+    <!-- Panel informasi petak -->
+    <aside id="info" class="hidden">
+      <div class="info-head">Informasi Petak<button id="infoX" aria-label="Tutup">✕</button></div>
+      <div class="info-body">
+        <div id="infoPic"></div>
+        <h3 id="infoTitle">—</h3>
+        <p id="infoDesc"></p>
+        <div class="info-msg"><b>Pesan Pembelajaran:</b><span id="infoMsg"></span></div>
+<button id="infoOk" class="info-image-button" type="button" aria-label="Mengerti">
+  <img src="assets/tombol-baru/tombol-mengerti.png" alt="Mengerti">
+</button>      </div>
+    </aside>
+
+    <!-- Maskot -->
+    <div id="mascot">
+      <img src="assets/maskot.png" alt="Maskot">
+      <div class="bubble" id="bubble">Ayo, lempar dadu dan mulai petualangan!</div>
+    </div>
+
+    <!-- Tombol bawah -->
+   <button id="btnPamali" class="wood-btn" type="button"></button>
+
+<button id="dice" aria-label="Lempar dadu">
+    <div class="die" data-v="5">
+        <i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+    </div>
+</button>
+
+<button id="btnKuis" class="wood-btn" type="button"></button>
+
+    <div id="toasts"></div>
+    <div id="layers"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+<script src="js/game.js"></script>
+<script src="js/cakrawala.js"></script>
+
+</body>
+</html>

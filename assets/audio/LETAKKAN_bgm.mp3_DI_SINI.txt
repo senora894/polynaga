@@ -1,0 +1,3 @@
+Opsional: simpan musik latar bebas hak cipta dengan nama bgm.mp3 di folder ini.
+Game otomatis memutarnya (bisa dimatikan lewat menu Pengaturan).
+Cantumkan sumber/atribusi musik di halaman kredit sesuai lisensinya.
